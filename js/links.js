@@ -1,11 +1,11 @@
-// // 随机排列
-// function shuffle(arr) {
-//     let i = arr.length;
-//     while (i) {
-//       let j = Math.floor(Math.random() * i--);
-//       [arr[j], arr[i]] = [arr[i], arr[j]];
-//     }
-//   }
+// 随机排列
+function shuffle(arr) {
+    let i = arr.length;
+    while (i) {
+      let j = Math.floor(Math.random() * i--);
+      [arr[j], arr[i]] = [arr[i], arr[j]];
+    }
+  }
   
   // 渲染数据
   // function renderlink(data) {
@@ -20,7 +20,7 @@
   //     document.querySelector(".link-navigation").innerHTML = li;
   // }
   function renderlink(data) {
-    // shuffle(data);
+    shuffle(data);
     const linkContainer = document.querySelector(".link-navigation");
     linkContainer.innerHTML = data.map(item => `
       <div class="card">
