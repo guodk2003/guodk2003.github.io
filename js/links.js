@@ -20,7 +20,7 @@
   //     document.querySelector(".link-navigation").innerHTML = li;
   // }
   function renderlink(data) {
-    shuffle(data);
+    // shuffle(data);
     const linkContainer = document.querySelector(".link-navigation");
     linkContainer.innerHTML = data.map(item => `
       <div class="card">
