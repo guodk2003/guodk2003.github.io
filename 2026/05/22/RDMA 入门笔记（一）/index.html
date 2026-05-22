@@ -20,22 +20,37 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="gdk&#39;blog">
-<meta property="og:url" content="http://example.com/index.html">
+    <meta name="description" content="此系列文章主要转载知乎用户 Savir 的 RDMA 杂谈系列文章，有些删改。  RDMA 概述 主要内容：RDMA技术是什么，它是如何产生的？我们在什么场景下需要使用RDMA技术代替传统的以太网？这项技术的主要贡献者和使用者是谁？  什么是 DMADMA 全程为 Direct Memory Access，即直接内存访问。意思是外设对内存的读写过程可以不用CPU参与而直接进行。  上图为无 DM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RDMA 入门笔记（一）">
+<meta property="og:url" content="http://example.com/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="gdk&#39;blog">
+<meta property="og:description" content="此系列文章主要转载知乎用户 Savir 的 RDMA 杂谈系列文章，有些删改。  RDMA 概述 主要内容：RDMA技术是什么，它是如何产生的？我们在什么场景下需要使用RDMA技术代替传统的以太网？这项技术的主要贡献者和使用者是谁？  什么是 DMADMA 全程为 Direct Memory Access，即直接内存访问。意思是外设对内存的读写过程可以不用CPU参与而直接进行。  上图为无 DM">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522023923582.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522024935577.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522025311163.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522025537375.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522030944600.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522031538158.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522032334157.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522032451596.jpeg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522032815636.jpeg">
+<meta property="article:published_time" content="2026-05-22T14:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-22T20:41:14.938Z">
 <meta property="article:author" content="gdk">
+<meta property="article:tag" content="RDMA">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522023923582.jpeg">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/","path":"2026/05/22/RDMA 入门笔记（一）/","title":"RDMA 入门笔记（一）"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>gdk'blog</title>
+<title>RDMA 入门笔记（一） | gdk'blog</title>
   
 
 
@@ -90,7 +105,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">gdk'blog</h1>
+      <p class="site-title">gdk'blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -143,7 +158,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -156,6 +171,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RDMA-%E6%A6%82%E8%BF%B0"><span class="nav-text">RDMA 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-DMA"><span class="nav-text">什么是 DMA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88%E6%98%AF-RDMA"><span class="nav-text">是什么是 RDMA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDMA-%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-text">RDMA 的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE"><span class="nav-text">协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#infiniband"><span class="nav-text">infiniband</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RoCE"><span class="nav-text">RoCE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iWARP"><span class="nav-text">iWARP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%A9%E5%AE%B6"><span class="nav-text">玩家</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86-%E7%94%9F%E6%80%81%E7%BB%84%E7%BB%87"><span class="nav-text">标准&#x2F;生态组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IBTA"><span class="nav-text">IBTA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OFA"><span class="nav-text">OFA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%A4%BE%E5%8C%BA"><span class="nav-text">开发社区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E7%A4%BE%E5%8C%BA"><span class="nav-text">Linux社区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDMA%E7%A4%BE%E5%8C%BA"><span class="nav-text">RDMA社区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UCX"><span class="nav-text">UCX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E5%8E%82%E5%95%86"><span class="nav-text">硬件厂商</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7"><span class="nav-text">用户</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E5%9F%BA%E4%BA%8ESocket%E4%B8%8ERDMA%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="nav-text">比较基于Socket与RDMA的通信</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -205,16 +221,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -228,13 +245,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | gdk'blog">
+      <meta itemprop="name" content="RDMA 入门笔记（一） | gdk'blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" class="post-title-link" itemprop="url">RDMA 入门笔记（一）</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          RDMA 入门笔记（一）
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -268,6 +285,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
     <span class="post-meta-break"></span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
@@ -291,8 +315,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
+    <div class="post-body" itemprop="articleBody"><blockquote>
 <p>此系列文章主要转载知乎用户 Savir 的 RDMA 杂谈<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/164908617">系列文章</a>，有些删改。</p>
 </blockquote>
 <h1 id="RDMA-概述"><a href="#RDMA-概述" class="headerlink" title="RDMA 概述"></a><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/138874738">RDMA 概述</a></h1><blockquote>
@@ -447,7 +470,6 @@
 <p>主要内容：传统以太网通过对上层应用提供了Socket接口作为API，而RDMA协议栈则向上层提供了verbs接口。以上两种通信方式在数据从本端用户的内存空间到达对端用户的内存空间这一过程中存在显著的差异。本文想通过对比这些差异告诉读者，为何我们要使用RDMA技术。</p>
 </blockquote>
 
-      
     </div>
 
     
@@ -455,342 +477,21 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+          <div class="post-tags">
+              <a href="/tags/RDMA/" rel="tag"># RDMA</a>
+          </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/05/18/%E4%B8%80%E3%80%81PicGo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="gdk">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="gdk'blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | gdk'blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/05/18/%E4%B8%80%E3%80%81PicGo/" class="post-title-link" itemprop="url">Typora + PicGo + Github 图床配置教程</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2026-05-18 16:00:00 / 修改时间：16:32:12" itemprop="dateCreated datePublished" datetime="2026-05-18T16:00:00+08:00">2026-05-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">博客</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8D%9A%E5%AE%A2/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>450</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="一、建立-Github-仓库"><a href="#一、建立-Github-仓库" class="headerlink" title="一、建立 Github 仓库"></a>一、建立 Github 仓库</h1><h1 id="二、PicGo"><a href="#二、PicGo" class="headerlink" title="二、PicGo"></a>二、PicGo</h1><ol>
-<li><strong>什么是图床</strong></li>
-</ol>
-<p>图床就是专门用来存图片、并给你可直接用的图片链接的在线服务或服务器。常见的图床有阿里云 OSS、腾讯云 COS、PicGo 等等，笔者采用 PicGo 配置。</p>
-<ol start="2">
-<li><strong>下载 PicGo</strong></li>
-</ol>
-<p>下载 <a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo/releases">链接</a>，根据电脑配置选择合适版本，笔者电脑设备为 windows10，采用如下版本下载。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161244800.png" style="zoom: 50%;" />
-
-<p>下载后进行安装，记住安装路径。</p>
-<ol start="3">
-<li><strong>配置 PicGo</strong></li>
-</ol>
-<p>进入 PicGo 后，将如下框住地方修改为 Github。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161502663.png" style="zoom: 67%;" />
-
-<p>点击图床设置，选择 Github 设置，按如下格式设置。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518151358906.png" alt="image-20260518151358849" style="zoom: 67%;" />
-
-<ul>
-<li>图床配置名：任取，方便记忆</li>
-<li>仓库名：Github 用户名&#x2F;仓库名</li>
-<li>分支名：main</li>
-<li>Token：在 Github 仓库配置中保存的 Token 复制过来</li>
-<li>存储路径：可设可不设，设置 img&#x2F; 方便管理</li>
-<li>自定义域名：可以加快访问图片的速度，<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/[Github">https://cdn.jsdelivr.net/gh/[Github</a> 用户名]&#x2F;[仓库名]@main</li>
-</ul>
-<p>  点击确定，配置完成。<br>  此外，还需点击 PicGo 设置的 sever，设置监听端口需为 36677。</p>
- <img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161750218.png" style="zoom:80%;" />
-
-<h1 id="三、设置-Typora"><a href="#三、设置-Typora" class="headerlink" title="三、设置 Typora"></a>三、设置 Typora</h1>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/23/Hexo-Next-Github-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="gdk">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="gdk'blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | gdk'blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/04/23/Hexo-Next-Github-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Hexo + Next + Github 从零开始搭建博客</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2026-04-23 03:22:21 / 修改时间：03:45:22" itemprop="dateCreated datePublished" datetime="2026-04-23T03:22:21+08:00">2026-04-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">博客</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8D%9A%E5%AE%A2/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>18</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          这是一篇加密文章，请输入密码查看
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/04/23/Hexo-Next-Github-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/18/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="gdk">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="gdk'blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | gdk'blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/04/18/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2026-04-18 23:19:44" itemprop="dateCreated datePublished" datetime="2026-04-18T23:19:44+08:00">2026-04-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-20 01:50:54" itemprop="dateModified" datetime="2026-04-20T01:50:54+08:00">2026-04-20</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>299</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/04/18/hello-world/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/18/%E4%B8%80%E3%80%81PicGo/" rel="prev" title="Typora + PicGo + Github 图床配置教程">
+                  <i class="fa fa-angle-left"></i> Typora + PicGo + Github 图床配置教程
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -799,6 +500,8 @@
 
 
 
+
+    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
@@ -888,7 +591,7 @@ setInterval("createtime()",250);
 </noscript>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"guodk2003","repo":"guodk2003.github.io","client_id":"Ov23li1EFTNMkgGApQwu","client_secret":"f49908634f2b29d961d821fb0d43906e9b8647da","admin_user":"guodk2003","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","body":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"d1546d731a9f30cc80127d57142a482b"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"guodk2003","repo":"guodk2003.github.io","client_id":"Ov23li1EFTNMkgGApQwu","client_secret":"f49908634f2b29d961d821fb0d43906e9b8647da","admin_user":"guodk2003","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","body":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"228034f9a7763a720a7a49a6df284173"}</script>
 <script src="/js/third-party/comments/gitalk.js" defer></script>
 
 </body>
