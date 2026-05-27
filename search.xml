@@ -26,6 +26,113 @@
       </tags>
   </entry>
   <entry>
+    <title>Typora + PicGo + Github 图床配置教程</title>
+    <url>/2026/05/27/Typora%20+%20PicGo%20+%20Github%20%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="一、建立-Github-仓库"><a href="#一、建立-Github-仓库" class="headerlink" title="一、建立 Github 仓库"></a>一、建立 Github 仓库</h1><p>登录 github，点击右上角 “+” 号，选择 “New repository” 新建仓库用来存放上传的图片。</p>
+<span id="more"></span>
+
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527013948116.png" alt="image-20260527013940946"></p>
+<p>在创建仓库页面，按如下图依次填写，然后点击 ”Create repository”。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527014854002.png" alt="image-20260527014853898" style="zoom: 67%;" />
+
+<p>依次进入 settings&#x2F;Developer settings&#x2F;Personal access tokens 来生成一个 token 用于 PicGo 访问 Github。</p>
+<blockquote>
+<p>GitHub Token 是访问私有仓库的身份验证凭据，确保只有授权用户才能上传和访问图片。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527015411762.png" alt="image-20260527015411700"></p>
+<p>点击  “Generate new token(classic)” 按钮。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527015724113.png" alt="image-20260527015723998" style="zoom:80%;" />
+
+<ul>
+<li>Note：描述名称，可取如 ”PicGo” 等名称显示其用途。</li>
+<li>Expiration：选择 “No expiration” 永不过期。</li>
+<li>Select scopes：勾上 ”repo” 的权限。</li>
+</ul>
+<p>点击 “Generate token” 生成令牌，得到 token 后保存（只出现一次），后面会用上。</p>
+<h1 id="二、PicGo"><a href="#二、PicGo" class="headerlink" title="二、PicGo"></a>二、PicGo</h1><ol>
+<li><strong>什么是图床</strong></li>
+</ol>
+<p>图床就是专门用来存图片、并给你可直接用的图片链接的在线服务或服务器。常见的图床有阿里云 OSS、腾讯云 COS、PicGo 等等，笔者采用 PicGo 配置。</p>
+<ol start="2">
+<li><strong>下载 PicGo</strong></li>
+</ol>
+<p>下载 <a href="https://github.com/Molunerfinn/PicGo/releases">链接</a>，根据电脑配置选择合适版本，笔者电脑设备为 windows10，采用如下版本下载。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161244800.png" style="zoom: 50%;" />
+
+<p>下载后进行安装，记住安装路径。</p>
+<ol start="3">
+<li><strong>配置 PicGo</strong></li>
+</ol>
+<p>进入 PicGo 后，将如下框住地方修改为 Github。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161502663.png" style="zoom: 67%;" />
+
+<p>点击图床设置，选择 Github 设置，按如下格式设置。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518151358906.png" alt="image-20260518151358849" style="zoom: 67%;" />
+
+<ul>
+<li>图床配置名：任取，方便记忆</li>
+<li>仓库名：Github 用户名&#x2F;仓库名</li>
+<li>分支名：main</li>
+<li>Token：在 Github 仓库配置中保存的 Token 复制过来</li>
+<li>存储路径：可设可不设，设置 img&#x2F; 方便管理</li>
+<li>自定义域名：可以加快访问图片的速度，<a href="https://cdn.jsdelivr.net/gh/[Github">https://cdn.jsdelivr.net/gh/[Github</a> 用户名]&#x2F;[仓库名]@main</li>
+</ul>
+<p>  点击确定，配置完成。<br>  此外，还需点击 PicGo 设置的 sever，设置监听端口需为 36677。</p>
+ <img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161750218.png" style="zoom:80%;" />
+
+<h1 id="三、设置-Typora"><a href="#三、设置-Typora" class="headerlink" title="三、设置 Typora"></a>三、设置 Typora</h1><p>点击左上角文件，进入偏好设置</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527020739087.png" alt="image-20260527020738982" style="zoom:80%;" />
+
+<p>进入图像设置，插入图片时选择上传图片，并将如图所示的选项打勾，上传服务设定设置为PicGo（app），下面填写完整的 PicGo 安装的路径（路径包含 PicGo.exe）。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527021050758.png" alt="image-20260527021050675" style="zoom:80%;" />
+
+<p>配置完成后点击左下角验证图片上传选项，出现如下界面则说明配置成功！🎉</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527021249567.png" alt="image-20260527021249500" style="zoom:80%;" />
+
+<h1 id="四、Typora-的一些设置"><a href="#四、Typora-的一些设置" class="headerlink" title="四、Typora 的一些设置"></a>四、Typora 的一些设置</h1><blockquote>
+<p>以下设置配置完都需重新启动 Typora。</p>
+</blockquote>
+<h2 id="1-plugin插件安装"><a href="#1-plugin插件安装" class="headerlink" title="1. plugin插件安装"></a>1. plugin插件安装</h2><p>参考b站 <a href="https://www.bilibili.com/video/BV1DtrbYrEgU/?spm_id_from=333.1387.favlist.content.click&vd_source=73ddc96ea81759ccdce58fa735a6e207">up 主</a>的视频或官方视频，在<a href="https://github.com/obgnail/typora_plugin/tree/master">官方网站</a>找到对应的版本进行安装</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527023818337.png" alt="image-20260527023818165"></p>
+<p>解压缩后，将解压缩的叫 ”plugin” 的文件夹复制到 Typora 的安装路径 resources 文件夹下（与window.html 在同一文件夹下），然后进入 plugin 文件夹下的 bin 文件夹，双击install_windows_amd_x64.exe 运行。插件即安装成功。🎉</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527024403275.png" alt="image-20260527024403199"></p>
+<h2 id="2-去掉typora的自动编号渲染功能"><a href="#2-去掉typora的自动编号渲染功能" class="headerlink" title="2. 去掉typora的自动编号渲染功能"></a>2. 去掉typora的自动编号渲染功能</h2><blockquote>
+<p>参考博客园<a href="https://www.cnblogs.com/LiYi-han/p/19003461">文章</a></p>
+</blockquote>
+<p>在 Typora 上写 md 文件时，从二级标题起，软件都给自动编号了，但问题是这只是一种渲染效果。同样的文档导到别的地方，比如博客园，编号就没有了，所以选择去掉自动标号渲染的功能。</p>
+<blockquote>
+<p>前置：已安装 plugin 插件</p>
+</blockquote>
+<p>点开 .\Typora\resources\plugin\global\settings 路径，有以下几个文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527025243029.png" alt="image-20260527025242979"></p>
+<p>settings.default.toml 文件是默认配置文件，不能更改，settings.user.toml文件是用户配置文件，优先级比前者更高。插件系统会优先从user.toml获取配置项，如果.user.toml没有对应的配置项，则从.default.toml中获取。因此可在user.toml 中进行修改。</p>
+<p>打开settings.default.toml文件，查找关键字 “auto_number”，</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030236441.png" style="zoom:80%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030544642.png" alt="image-20260527030544601" style="zoom:80%;" />
+
+<p>复制以下内容到settings.user.toml文件即可去掉侧边栏和正文标题的自动编号啦。🎉</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030351905.png" alt="image-20260527030351856"></p>
+<h2 id="3-Typora-主题的设置"><a href="#3-Typora-主题的设置" class="headerlink" title="3. Typora 主题的设置"></a>3. Typora 主题的设置</h2><p>打开Typora 的文件 → 偏好设置 → 外观 → 获取主题，会跳转到官网<a href="https://theme.typoraio.cn/">主题库</a>。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527031645235.png" style="zoom:80%;" />
+
+<p>在官网选择心仪的主题下载（也可在 github 上找），此处以 Drake 主题为例，解压缩后将 css 文件和跟主题同名的文件夹复制到 Typora 的theme文件夹下（上图点击打开主题文件夹）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527032141993.png" alt="image-20260527032141911"></p>
+<p>然后就可以在主题那里切换主题使用了。🎉</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>github</tag>
+        <tag>博客</tag>
+        <tag>PicGo</tag>
+        <tag>Typora</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RDMA 入门笔记（一）</title>
     <url>/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -191,113 +298,6 @@
       </categories>
       <tags>
         <tag>RDMA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Typora + PicGo + Github 图床配置教程</title>
-    <url>/2026/05/27/Typora%20+%20PicGo%20+%20Github%20%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="一、建立-Github-仓库"><a href="#一、建立-Github-仓库" class="headerlink" title="一、建立 Github 仓库"></a>一、建立 Github 仓库</h1><p>登录 github，点击右上角 “+” 号，选择 “New repository” 新建仓库用来存放上传的图片。</p>
-<span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527013948116.png" alt="image-20260527013940946"></p>
-<p>在创建仓库页面，按如下图依次填写，然后点击 ”Create repository”。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527014854002.png" alt="image-20260527014853898" style="zoom: 67%;" />
-
-<p>依次进入 settings&#x2F;Developer settings&#x2F;Personal access tokens 来生成一个 token 用于 PicGo 访问 Github。</p>
-<blockquote>
-<p>GitHub Token 是访问私有仓库的身份验证凭据，确保只有授权用户才能上传和访问图片。</p>
-</blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527015411762.png" alt="image-20260527015411700"></p>
-<p>点击  “Generate new token(classic)” 按钮。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527015724113.png" alt="image-20260527015723998" style="zoom:80%;" />
-
-<ul>
-<li>Note：描述名称，可取如 ”PicGo” 等名称显示其用途。</li>
-<li>Expiration：选择 “No expiration” 永不过期。</li>
-<li>Select scopes：勾上 ”repo” 的权限。</li>
-</ul>
-<p>点击 “Generate token” 生成令牌，得到 token 后保存（只出现一次），后面会用上。</p>
-<h1 id="二、PicGo"><a href="#二、PicGo" class="headerlink" title="二、PicGo"></a>二、PicGo</h1><ol>
-<li><strong>什么是图床</strong></li>
-</ol>
-<p>图床就是专门用来存图片、并给你可直接用的图片链接的在线服务或服务器。常见的图床有阿里云 OSS、腾讯云 COS、PicGo 等等，笔者采用 PicGo 配置。</p>
-<ol start="2">
-<li><strong>下载 PicGo</strong></li>
-</ol>
-<p>下载 <a href="https://github.com/Molunerfinn/PicGo/releases">链接</a>，根据电脑配置选择合适版本，笔者电脑设备为 windows10，采用如下版本下载。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161244800.png" style="zoom: 50%;" />
-
-<p>下载后进行安装，记住安装路径。</p>
-<ol start="3">
-<li><strong>配置 PicGo</strong></li>
-</ol>
-<p>进入 PicGo 后，将如下框住地方修改为 Github。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161502663.png" style="zoom: 67%;" />
-
-<p>点击图床设置，选择 Github 设置，按如下格式设置。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518151358906.png" alt="image-20260518151358849" style="zoom: 67%;" />
-
-<ul>
-<li>图床配置名：任取，方便记忆</li>
-<li>仓库名：Github 用户名&#x2F;仓库名</li>
-<li>分支名：main</li>
-<li>Token：在 Github 仓库配置中保存的 Token 复制过来</li>
-<li>存储路径：可设可不设，设置 img&#x2F; 方便管理</li>
-<li>自定义域名：可以加快访问图片的速度，<a href="https://cdn.jsdelivr.net/gh/[Github">https://cdn.jsdelivr.net/gh/[Github</a> 用户名]&#x2F;[仓库名]@main</li>
-</ul>
-<p>  点击确定，配置完成。<br>  此外，还需点击 PicGo 设置的 sever，设置监听端口需为 36677。</p>
- <img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161750218.png" style="zoom:80%;" />
-
-<h1 id="三、设置-Typora"><a href="#三、设置-Typora" class="headerlink" title="三、设置 Typora"></a>三、设置 Typora</h1><p>点击左上角文件，进入偏好设置</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527020739087.png" alt="image-20260527020738982" style="zoom:80%;" />
-
-<p>进入图像设置，插入图片时选择上传图片，并将如图所示的选项打勾，上传服务设定设置为PicGo（app），下面填写完整的 PicGo 安装的路径（路径包含 PicGo.exe）。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527021050758.png" alt="image-20260527021050675" style="zoom:80%;" />
-
-<p>配置完成后点击左下角验证图片上传选项，出现如下界面则说明配置成功！🎉</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527021249567.png" alt="image-20260527021249500" style="zoom:80%;" />
-
-<h1 id="四、Typora-的一些设置"><a href="#四、Typora-的一些设置" class="headerlink" title="四、Typora 的一些设置"></a>四、Typora 的一些设置</h1><blockquote>
-<p>以下设置配置完都需重新启动 Typora。</p>
-</blockquote>
-<h2 id="1-plugin插件安装"><a href="#1-plugin插件安装" class="headerlink" title="1. plugin插件安装"></a>1. plugin插件安装</h2><p>参考b站 <a href="https://www.bilibili.com/video/BV1DtrbYrEgU/?spm_id_from=333.1387.favlist.content.click&vd_source=73ddc96ea81759ccdce58fa735a6e207">up 主</a>的视频或官方视频，在<a href="https://github.com/obgnail/typora_plugin/tree/master">官方网站</a>找到对应的版本进行安装</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527023818337.png" alt="image-20260527023818165"></p>
-<p>解压缩后，将解压缩的叫 ”plugin” 的文件夹复制到 Typora 的安装路径 resources 文件夹下（与window.html 在同一文件夹下），然后进入 plugin 文件夹下的 bin 文件夹，双击install_windows_amd_x64.exe 运行。插件即安装成功。🎉</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527024403275.png" alt="image-20260527024403199"></p>
-<h2 id="2-去掉typora的自动编号渲染功能"><a href="#2-去掉typora的自动编号渲染功能" class="headerlink" title="2. 去掉typora的自动编号渲染功能"></a>2. 去掉typora的自动编号渲染功能</h2><blockquote>
-<p>参考博客园<a href="https://www.cnblogs.com/LiYi-han/p/19003461">文章</a></p>
-</blockquote>
-<p>在 Typora 上写 md 文件时，从二级标题起，软件都给自动编号了，但问题是这只是一种渲染效果。同样的文档导到别的地方，比如博客园，编号就没有了，所以选择去掉自动标号渲染的功能。</p>
-<blockquote>
-<p>前置：已安装 plugin 插件</p>
-</blockquote>
-<p>点开 .\Typora\resources\plugin\global\settings 路径，有以下几个文件</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527025243029.png" alt="image-20260527025242979"></p>
-<p>settings.default.toml 文件是默认配置文件，不能更改，settings.user.toml文件是用户配置文件，优先级比前者更高。插件系统会优先从user.toml获取配置项，如果.user.toml没有对应的配置项，则从.default.toml中获取。因此可在user.toml 中进行修改。</p>
-<p>打开settings.default.toml文件，查找关键字 “auto_number”，</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030236441.png" style="zoom:80%;" />
-
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030544642.png" alt="image-20260527030544601" style="zoom:80%;" />
-
-<p>复制以下内容到settings.user.toml文件即可去掉侧边栏和正文标题的自动编号啦。🎉</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030351905.png" alt="image-20260527030351856"></p>
-<h2 id="3-Typora-主题的设置"><a href="#3-Typora-主题的设置" class="headerlink" title="3. Typora 主题的设置"></a>3. Typora 主题的设置</h2><p>打开Typora 的文件 → 偏好设置 → 外观 → 获取主题，会跳转到官网<a href="https://theme.typoraio.cn/">主题库</a>。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527031645235.png" style="zoom:80%;" />
-
-<p>在官网选择心仪的主题下载（也可在 github 上找），此处以 Drake 主题为例，解压缩后将 css 文件和跟主题同名的文件夹复制到 Typora 的theme文件夹下（上图点击打开主题文件夹）。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527032141993.png" alt="image-20260527032141911"></p>
-<p>然后就可以在主题那里切换主题使用了。🎉</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>github</tag>
-        <tag>博客</tag>
-        <tag>PicGo</tag>
-        <tag>Typora</tag>
       </tags>
   </entry>
   <entry>
