@@ -505,6 +505,7 @@ function colorizeTags() {
 }
 document.addEventListener('DOMContentLoaded', colorizeTags);
 window.addEventListener('load', colorizeTags);
+document.addEventListener('pjax:success', colorizeTags);
 setTimeout(colorizeTags, 500);
 setTimeout(colorizeTags, 1500);
 </script>
