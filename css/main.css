@@ -1253,7 +1253,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #ffff2a;
+    background: #370362;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2831,7 +2831,7 @@ body {
 .post-block {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05);
   padding: 50px;
 }
 @media (max-width: 767px) {
@@ -2845,6 +2845,12 @@ body.darkmode--activated {
 }
 body.darkmode--activated .post-block {
   background: #222;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
   border: 1px solid #333;
+}
+@media (max-width: 767px) {
+  body.darkmode--activated .post-block {
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
 }
