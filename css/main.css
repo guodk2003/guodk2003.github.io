@@ -1253,7 +1253,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #c9ff52;
+    background: #ff776b;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2825,11 +2825,15 @@ canvas#canvas {
 .post-body img {
   border-radius: 1em;
 }
+body {
+  background: #f0f0f0;
+}
 .post-block {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
   padding: 50px;
+  border: 1px solid #e8e8e8;
 }
 @media (max-width: 767px) {
   .post-block {
