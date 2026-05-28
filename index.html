@@ -486,15 +486,27 @@ if(canvas.getContext){
 	<br>
 	
 	<script>console.log('=== tag-color.njk loaded ===');</script>
-<script type="text/javascript">
-     var alltags = document.getElementsByClassName('tag-cloud-tags');
-     var tags = alltags[0].getElementsByTagName('a');
-     for (var i = tags.length - 1; i >= 0; i--) {
-       var r=Math.floor(Math.random()*75+130);
-       var g=Math.floor(Math.random()*75+100);
-       var b=Math.floor(Math.random()*75+80);
-       tags[i].style.background = "rgb("+r+","+g+","+b+")";
-     }
+<script>
+function colorizeTags() {
+  var containers = document.querySelectorAll('.tag-cloud .tag-cloud-tags');
+  containers.forEach(function(container) {
+    var tags = container.getElementsByTagName('a');
+    if (tags.length === 0) return;
+    for (var i = tags.length - 1; i >= 0; i--) {
+      if (tags[i].dataset.colored) continue;
+      var r = Math.floor(Math.random() * 75 + 130);
+      var g = Math.floor(Math.random() * 75 + 100);
+      var b = Math.floor(Math.random() * 75 + 80);
+      tags[i].style.background = "rgb(" + r + "," + g + "," + b + ")";
+      tags[i].style.color = "#fff";
+      tags[i].dataset.colored = "true";
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', colorizeTags);
+window.addEventListener('load', colorizeTags);
+setTimeout(colorizeTags, 500);
+setTimeout(colorizeTags, 1500);
 </script>
 
 <style>
