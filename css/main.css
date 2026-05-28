@@ -1253,7 +1253,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #ff22b8;
+    background: #8aff41;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2808,6 +2808,9 @@ canvas#canvas {
   -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
   -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
   margin-bottom: 40px;
+}
+.post-block + .post-block {
+  margin-top: 40px;
 }
 .post-body p a {
   color: #0593d3;
