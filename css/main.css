@@ -1253,7 +1253,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #f06eff;
+    background: #bdffff;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2807,6 +2807,9 @@ canvas#canvas {
   padding: 25px;
   -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
   -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+  margin-bottom: 20px !important;
+}
+.main-inner.index .post-block {
   margin-bottom: 20px !important;
 }
 .post-body p a {
