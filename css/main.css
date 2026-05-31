@@ -1258,7 +1258,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #8ee8e3;
+    background: #5598f2;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2828,6 +2828,9 @@ canvas#canvas {
   color: #0477ab;
   text-decoration: underline;
 }
+.post-body .headerlink {
+  display: none !important;
+}
 .post-block code {
   word-break: break-all;
 }
@@ -2865,7 +2868,4 @@ body.darkmode--activated .post-block {
     padding: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
-}
-.post-body .headerlink {
-  display: none !important;
 }
