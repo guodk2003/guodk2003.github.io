@@ -1,171 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>RDMA 入门笔记（一）</title>
-    <url>/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>此系列文章主要转载知乎用户 Savir 的 RDMA 杂谈<a href="https://zhuanlan.zhihu.com/p/164908617">系列文章</a>，有些删改。</p>
-</blockquote>
-<h1 id="RDMA-概述"><a href="#RDMA-概述" class="headerlink" title="RDMA 概述"></a><a href="https://zhuanlan.zhihu.com/p/138874738">RDMA 概述</a></h1><blockquote>
-<p>主要内容：RDMA技术是什么，它是如何产生的？我们在什么场景下需要使用RDMA技术代替传统的以太网？这项技术的主要贡献者和使用者是谁？</p>
-</blockquote>
-<h2 id="什么是-DMA"><a href="#什么是-DMA" class="headerlink" title="什么是 DMA"></a>什么是 DMA</h2><p>DMA 全程为 Direct Memory Access，即直接内存访问。意思是外设对内存的读写过程可以不用CPU参与而直接进行。</p>
-<span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522023923582.jpeg" alt="img"></p>
-<p>上图为无 DMA 时候，假设I&#x2F;O设备为一个普通网卡，为了从内存拿到需要发送的数据，然后组装数据包发送到物理链路上，网卡需要通过总线告知CPU自己的数据请求。然后CPU将会把内存缓冲区中的数据复制到自己内部的寄存器中，再复制到I&#x2F;O设备的存储空间中。如果数据量比较大，那么很长一段时间内 CPU 都会忙于搬移数据，而无法投入到其他工作中去。</p>
-<blockquote>
-<ul>
-<li><p><strong>网卡：Network Interface Card（NIC）</strong>，也称网络适配器，发送和接收数据。</p>
-<ul>
-<li><p>物理层连接：它提供网口，让设备可以插网线，或者通过无线网卡连 WiFi，建立物理 &#x2F; 无线的网络通路。</p>
-</li>
-<li><p>数据链路层：</p>
-<ol>
-<li>数据封装与解析：把计算机要发送的数据，按照网络协议（比如以太网协议）封装成 “帧”，再发出去；收到数据时，再把帧解析还原成计算机能处理的数据。</li>
-<li>MAC 地址管理：每块网卡都有一个全球唯一的 MAC 地址，用来在局域网里定位设备。</li>
-<li>数据传输控制：负责处理传输中的错误校验、流量控制，保证数据稳定传输。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>普通网卡</strong>传输数据时，需要 CPU 参与拷贝数据，而<strong>RDMA 网卡</strong>（也叫 <strong>RNIC</strong>） 可以绕过 CPU，直接在两台机器的内存之间传输数据，这也是 RDMA 能做到低延迟、高吞吐的关键硬件基础。</p>
-</blockquote>
-<p>CPU的最主要工作是计算，而不是进行数据复制，这种工作属于白白浪费了它的计算能力。为了给CPU“减负”，让它投入到更有意义的工作中去，后来人们设计了DMA机制：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522024935577.jpeg" alt="img"></p>
-<p>总线上又挂了一个 DMA 控制器专门用来读写内存的设备。以后当网卡想要从内存中拷贝数据时，除了一些必要的控制命令外，整个数据复制过程都是由 DMA 控制器完成的。过程跟CPU复制是一样的，只不过这次是把内存中的数据通过总线复制到 DMA 控制器内部的寄存器中，再复制到I&#x2F;O设备的存储空间中。CPU除了关注一下这个过程的开始和结束以外，其他时间可以去做其他事情。</p>
-<p>DMA控制器一般是和I&#x2F;O设备在一起的，也就是说一块网卡中既有负责数据收发的模块，也有DMA模块。</p>
-<h2 id="是什么是-RDMA"><a href="#是什么是-RDMA" class="headerlink" title="是什么是 RDMA"></a>是什么是 RDMA</h2><p>RDMA（ Remote Direct Memory Access ）意为远程直接地址访问，通过RDMA，本端节点可以“直接”访问远端节点的内存。所谓直接，指的是可以像访问本地内存一样，绕过传统以太网复杂的TCP&#x2F;IP网络协议栈读写远端内存，而这个过程对端是不感知的，而且这个读写过程的大部分工作是由硬件而不是软件完成的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522025311163.jpeg" alt="img"></p>
-<p>如上图所示（图中箭头仅做示意，不表示实际逻辑或物理关系）：传统网络中，“节点A给节点B发消息”实际上做的是“把节点A内存中的一段数据，通过网络链路搬移到节点B的内存中”，而这一过程无论是发端还是收段，都需要CPU的指挥和控制，包括网卡的控制，中断的处理，报文的封装和解析等等。</p>
-<p>上图中左边的节点在内存用户空间中的数据，需要经过CPU拷贝到内核空间的缓冲区中，然后才可以被网卡访问，这期间数据会经过软件实现的TCP&#x2F;IP协议栈，加上各层头部和校验码，比如TCP头，IP头等。网卡通过DMA拷贝内核中的数据到网卡内部的缓冲区中，进行处理后通过物理链路发送给对端。<br>对端收到数据后，会进行相反的过程：从网卡内部存储空间，将数据通过DMA拷贝到内存内核空间的缓冲区中，然后CPU会通过TCP&#x2F;IP协议栈对其进行解析，将数据取出来拷贝到用户空间中。</p>
-<blockquote>
-<ul>
-<li><p>用户空间（User Space）：普通应用程序，只有自己的用户进程能直接读写，不能直接操作硬件。</p>
-</li>
-<li><p>内核空间（Kernel Space）：操作系统内核，只有内核代码（驱动、系统调用）能直接访问，最高权限，能直接操作硬件、访问所有物理内存</p>
-</li>
-</ul>
-<p>网卡不能直接访问用户内存（即分区）的好处：</p>
-<ol>
-<li>安全隔离，所有对硬件的操作都必须通过内核来中转，保证系统稳定。</li>
-<li>硬件限制：早期网卡不支持用户地址，传统网卡只能理解<strong>物理地址</strong>或者内核管理的虚拟地址，不能直接识别用户进程的虚拟地址。网卡没有进程上下文，不知道当前是哪个进程在运行，根本没法正确解析用户地址。</li>
-</ol>
-</blockquote>
-<p>可以看到，即使有了DMA技术，上述过程还是对CPU有较强的依赖。而使用了RDMA技术之后，这一过程可以简单的表示成下面的示意图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522025537375.jpeg" alt="img"></p>
-<p>同样是把本端内存中的一段数据，复制到对端内存中，在使用了RDMA技术时，两端的CPU几乎不用参与数据传输过程（只参与控制面）。本端的网卡直接从内存的用户空间DMA拷贝数据到内部存储空间，然后硬件进行各层报文的组装后，通过物理链路发送到对端网卡。对端的RDMA网卡收到数据后，剥离各层报文头和校验码，通过DMA将数据直接拷贝到用户空间内存中。</p>
-<h2 id="RDMA-的优势"><a href="#RDMA-的优势" class="headerlink" title="RDMA 的优势"></a>RDMA 的优势</h2><p>RDMA 主要应用在高性能计算（HPC）领域和大型数据中心当中，并且设备相对普通以太网卡要昂贵不少。由于使用场景和价格的原因，RDMA目前主要是一些大型互联网企业在部署和使用。</p>
-<p>RDMA 有以下几个特点：</p>
-<ul>
-<li><strong>0拷贝</strong>：指的是不需要在用户空间和内核空间中来回复制数据。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522030944600.png" alt="image-20260522030944558"></p>
-<p>在传统的Socket通信流程中CPU需要多次把数据在内存中来回拷贝。而通过RDMA技术，我们可以直接访问远端已经注册的内存区域。</p>
-<table>
-<thead>
-<tr>
-<th>对比项</th>
-<th>传统 TCP&#x2F;IP 网络</th>
-<th>RDMA 网络</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>CPU 拷贝次数</strong></td>
-<td>发送端：用户 → 内核（1 次）接收端：内核 → 用户（1 次）<strong>共 2 次 CPU 拷贝</strong></td>
-<td>0 次 CPU 拷贝（数据直接在用户内存 ↔ 网卡之间传输）</td>
-</tr>
-<tr>
-<td><strong>协议栈处理位置</strong></td>
-<td>CPU 内核态软件处理（TCP&#x2F;IP 协议栈）</td>
-<td>网卡硬件卸载处理（RoCE&#x2F;InfiniBand 协议栈）</td>
-</tr>
-<tr>
-<td><strong>CPU 开销</strong></td>
-<td>极高（拷贝 + 协议栈 + 中断处理）</td>
-<td>极低（几乎无参与，仅少量控制）</td>
-</tr>
-<tr>
-<td><strong>延迟</strong></td>
-<td>较高（几十微秒级，受 CPU 调度影响）</td>
-<td>极低（微秒级，甚至亚微秒级）</td>
-</tr>
-<tr>
-<td><strong>依赖</strong></td>
-<td>普通网卡即可</td>
-<td>专用 RDMA 网卡（RNIC）+ 支持的网络架构</td>
-</tr>
-<tr>
-<td><strong>数据路径（发送端）</strong></td>
-<td>用户内存 → CPU 拷贝 → 内核缓冲区 → DMA 拷贝 → 网卡</td>
-<td>用户内存 → 网卡（直接 DMA 传输）</td>
-</tr>
-<tr>
-<td><strong>数据路径（接收端）</strong></td>
-<td>网卡 → DMA 拷贝 → 内核缓冲区 → CPU 拷贝 → 用户内存</td>
-<td>网卡 → 用户内存（直接 DMA 传输）</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p><strong>内核Bypass</strong>：指的是IO（数据）流程可以绕过内核，即在用户层就可以把数据准备好并通知硬件准备发送和接收。避免了系统调用和上下文切换的开销。</p>
-<p>  <img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522031538158.jpeg" alt="img"></p>
-<p>  上图上下两部分分别是基于Socket的和基于RDMA的一次收-发流程，左右分别为两个节点。可以明显的看到Socket流程中在软件中多了一次拷贝动作。而RDMA绕过了内核同时也减少了内存拷贝，数据可以直接在用户层和硬件间传递。</p>
-</li>
-<li><p><strong>CPU卸载</strong>：指的是可以在远端节点CPU不参与通信的情况下（当然要持有访问远端某段内存的“钥匙”才行）对内存进行读写，这实际上是<strong>把报文封装和解析放到硬件中做了</strong>。而传统的以太网通信，双方CPU都必须参与各层报文的解析，如果数据量大且交互频繁，对CPU来讲将是一笔不小的开销，而这些被占用的CPU计算资源本可以做一些更有价值的工作。</p>
-</li>
-</ul>
-<p>通信领域两大出场率最高的<strong>性能指标</strong>就是“<strong>带宽</strong>”和“<strong>时延</strong>”。简单的说，所谓带宽指的是指单位时间内能够传输的数据量，而时延指的是数据从本端发出到被对端接收所耗费的时间。<br>因为上述几个特点，相比于传统以太网，RDMA技术同时做到了更高带宽和更低时延，所以其在带宽敏感的场景——比如海量数据的交互，时延敏感——比如多个计算节点间的数据同步的场景下得以发挥其作用。</p>
-<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>RDMA本身指的是一种技术，具体协议层面，包含<a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=Infiniband&zhida_source=entity">Infiniband</a>（IB），RDMA over Converged Ethernet（RoCE）和internet Wide Area RDMA Protocol（iWARP）。三种协议都符合RDMA标准，使用相同的上层接口，在不同层次上有一些差别。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522032334157.jpeg" alt="img"></p>
-<p>上图对几种常见的RDMA技术的协议层次做了非常清晰的对比。</p>
-<h3 id="infiniband"><a href="#infiniband" class="headerlink" title="infiniband"></a>infiniband</h3><p>2000年由<a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=IBTA&zhida_source=entity">IBTA</a>（InfiniBand Trade Association）提出的IB协议是当之无愧的核心，其规定了一整套完整的链路层到传输层（非传统OSI七层模型的传输层，而是位于其之上）规范，但是其无法兼容现有以太网，除了需要支持IB的网卡之外，企业如果想部署的话还要重新购买配套的交换设备。</p>
-<h3 id="RoCE"><a href="#RoCE" class="headerlink" title="RoCE"></a>RoCE</h3><p>RoCE从英文全称就可以看出它是基于以太网链路层的协议，v1版本网络层仍然使用了IB规范，而v2使用了UDP+IP作为网络层，使得数据包也可以被路由。RoCE可以被认为是IB的“低成本解决方案”，将IB的报文封装成以太网包进行收发。由于RoCE v2可以使用以太网的交换设备，所以现在在企业中应用也比较多，但是相同场景下相比IB性能要有一些损失</p>
-<h3 id="iWARP"><a href="#iWARP" class="headerlink" title="iWARP"></a>iWARP</h3><p>iWARP协议是IETF基于TCP提出的，因为TCP是面向连接的可靠协议，这使得iWARP在面对有损网络场景（可以理解为网络环境中可能经常出现丢包）时相比于RoCE v2和IB具有更好的可靠性，在大规模组网时也有明显的优势。但是大量的TCP连接会耗费很多的内存资源，另外TCP复杂的流控等机制会导致性能问题，所以从性能上看iWARP要比UDP的RoCE v2和IB差。</p>
-<p>需要注意的是，虽然有软件实现的RoCE和iWARP协议，但是真正商用时上述几种协议都需要专门的硬件（网卡）支持。</p>
-<p>iWARP本身不是由Infiniband直接发展而来的，但是它继承了一些Infiniband技术的设计思想。这三种协议的关系如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522032451596.jpeg" alt="img"></p>
-<h2 id="玩家"><a href="#玩家" class="headerlink" title="玩家"></a>玩家</h2><h3 id="标准-生态组织"><a href="#标准-生态组织" class="headerlink" title="标准&#x2F;生态组织"></a>标准&#x2F;生态组织</h3><p>两大组织——<a href="https://www.infinibandta.org/">IBTA</a> 和 <a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=OFA&zhida_source=entity">OFA</a>。</p>
-<h3 id="IBTA"><a href="#IBTA" class="headerlink" title="IBTA"></a>IBTA</h3><p>成立于1999年，负责制定和维护Infiniband协议标准。IBTA独立于各个厂商，通过赞助技术活动和推动资源共享来将整个行业整合在一起，并且通过线上交流、营销和线下活动等方式积极推广IB和RoCE。</p>
-<p>IBTA会对商用的IB和RoCE设备进行协议标准符合性和互操作性测试及认证，由很多大型的IT厂商组成的委员会领导，其主要成员包括博通，HPE，IBM，英特尔，Mellanox和微软等，华为也是IBTA的会员。</p>
-<h3 id="OFA"><a href="#OFA" class="headerlink" title="OFA"></a>OFA</h3><p>成立于2004年的非盈利组织，负责开发、测试、认证、支持和分发独立于厂商的开源跨平台infiniband协议栈，2010年开始支持RoCE。其对用于支撑RDMA&#x2F;Kernel bypass应用的<a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=OFED&zhida_source=entity">OFED</a>（OpenFabrics Enterprise Distribution）软件栈负责，保证其与主流软硬件的兼容性和易用性。OFED软件栈包括驱动、内核、中间件和API。</p>
-<p>上述两个组织是配合关系，IBTA主要负责开发、维护和增强Infiniband协议标准；OFA负责开发和维护Infiniband协议和上层应用API。</p>
-<h2 id="开发社区"><a href="#开发社区" class="headerlink" title="开发社区"></a>开发社区</h2><h3 id="Linux社区"><a href="#Linux社区" class="headerlink" title="Linux社区"></a>Linux社区</h3><p>Linux内核的RDMA子系统还算比较活跃，经常会讨论一些协议细节，对框架的修改比较频繁，另外包括华为和Mellanox在内的一些厂商也会经常对驱动代码进行修改。</p>
-<p>邮件订阅：<a href="https://link.zhihu.com/?target=http://vger.kernel.org/vger-lists.html%23linux-rdma">http://vger.kernel.org/vger-lists.html#linux-rdma</a></p>
-<p>代码位于内核drivers&#x2F;infiniband&#x2F;目录下，包括框架核心代码和各厂商的驱动代码。</p>
-<p>代码仓：<a href="https://link.zhihu.com/?target=https://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma.git/">https://git.kernel.org/pub/scm/</a></p>
-<h3 id="RDMA社区"><a href="#RDMA社区" class="headerlink" title="RDMA社区"></a>RDMA社区</h3><p>对于上层用户，IB提供了一套与Socket套接字类似的接口——<a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=libibverbs&zhida_source=entity">libibverbs</a>，前文所述三种协议都可以使用。参考着协议、API文档和示例程序很容易就可以写一个Demo出来。本专栏中的RDMA社区专指其用户态社区，在github上其仓库的名字为linux-rdma。</p>
-<p>主要包含两个子仓库：</p>
-<ul>
-<li>rdma-core</li>
-</ul>
-<p>用户态核心代码，API，文档以及各个厂商的用户态驱动。</p>
-<ul>
-<li>perftest</li>
-</ul>
-<p>一个功能强大的用于测试RDMA性能的工具。</p>
-<p>代码仓：<a href="https://link.zhihu.com/?target=https://github.com/linux-rdma/">https://github.com/linux-rdma/</a></p>
-<h2 id="UCX"><a href="#UCX" class="headerlink" title="UCX"></a><a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=UCX&zhida_source=entity">UCX</a></h2><p>UCX是一个建立在RDMA等技术之上的用于数据处理和高性能计算的通信框架，RDMA是其底层核心之一。我们可以将其理解为是位于应用和RDMA API之间的中间件，向上层用户又封装了一层更易开发的接口。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522032815636.jpeg" alt="img"></p>
-<p>代码仓：<a href="https://link.zhihu.com/?target=https://github.com/openucx/ucx">https://github.com/openucx/ucx</a></p>
-<h2 id="硬件厂商"><a href="#硬件厂商" class="headerlink" title="硬件厂商"></a>硬件厂商</h2><p>设计和生产IB相关硬件的厂商有不少，包括Mellanox、华为、收购了Qlogic的IB技术的Intel，博通、Marvell，富士通等等，这里就不逐个展开了，仅简单提一下Mellanox和华为。</p>
-<ul>
-<li><p>Mellanox：IB领域的领头羊，协议标准制定、软硬件开发和生态建设都能看到Mellanox的身影，其在社区和标准制定上上拥有最大的话语权。</p>
-</li>
-<li><p>华为：国产。</p>
-</li>
-</ul>
-<h2 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h2><p>微软、IBM和国内的阿里、京东都正在使用RDMA，另外还有很多大型IT公司在做初步的开发和测试。在数据中心和高性能计算场景下，RDMA代替传统网络是大势所趋。</p>
-<h1 id="比较基于Socket与RDMA的通信"><a href="#比较基于Socket与RDMA的通信" class="headerlink" title="比较基于Socket与RDMA的通信"></a><a href="https://zhuanlan.zhihu.com/p/139548242">比较基于Socket与RDMA的通信</a></h1><blockquote>
-<p>主要内容：传统以太网通过对上层应用提供了Socket接口作为API，而RDMA协议栈则向上层提供了verbs接口。以上两种通信方式在数据从本端用户的内存空间到达对端用户的内存空间这一过程中存在显著的差异。本文想通过对比这些差异告诉读者，为何我们要使用RDMA技术。</p>
-</blockquote>
-]]></content>
+    <title>Hexo - Next - Github 从零开始搭建博客</title>
+    <url>/2026/04/23/Hexo-Next-Github-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="窃取机密失败..." data-whm="窃取机密失败，仍可尝试">
+  <script id="hbeData" type="hbeData" data-hmacdigest="d5db5fe5ab00b27ae0836f194ffd69fbb2dc9e14180c100c7a01b5588dc37db4">17851fe798c0443d4d6f7cb76297144bf04c740de7942ff331e542181351b6e3963201f82ff4fba2c2189b3a1c1f566f4ac76fe32c0a87e7131300c232e78992ed9f021a58db47447a5ed33c122c9758ceac37ea3c830ccf9d98094c52e58cefe5e7fd5e6edabe85422addfd2a9352174e53d8120e075c46081e8e7905d46bb2f7db31d5c7a13542cc1929910b183c6c673dc3d9998fc9baac2691838dd2ea36735d327c70c6ee4233c67553c3fb99e4177a6d962b7d22d2f59fd56d82d1deda201a419737d01c838ffbb339a13d45e5289e0628465e7ade77d628f45e3a35b783049e75645660ac123a70d5b768199edce54044bb81f99e6d2fa481c64c256b477e191dc14eefd98acae7812bb2a246db2dee23c75b1b08650618dcd85bdd37901ca177132c04058901ecfc9f8d58851aafa90cdcaae9cdafae81ca571a2b730769acea747ab5be21bae9505f2edf5c2a5099ade9384ff0c8cc91cdf9edfa53a40d05f05326bcf75b9fd697f09f3843</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">这是一篇加密文章，请输入密码查看</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
-        <category>RDMA</category>
+        <category>博客</category>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>RDMA</tag>
+        <tag>hexo</tag>
+        <tag>github</tag>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -479,49 +336,172 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo - Next - Github 从零开始搭建博客</title>
-    <url>/2026/04/23/Hexo-Next-Github-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="窃取机密失败..." data-whm="窃取机密失败，仍可尝试">
-  <script id="hbeData" type="hbeData" data-hmacdigest="d5db5fe5ab00b27ae0836f194ffd69fbb2dc9e14180c100c7a01b5588dc37db4">17851fe798c0443d4d6f7cb76297144bf04c740de7942ff331e542181351b6e3963201f82ff4fba2c2189b3a1c1f566f4ac76fe32c0a87e7131300c232e78992ed9f021a58db47447a5ed33c122c9758ceac37ea3c830ccf9d98094c52e58cefe5e7fd5e6edabe85422addfd2a9352174e53d8120e075c46081e8e7905d46bb2f7db31d5c7a13542cc1929910b183c6c673dc3d9998fc9baac2691838dd2ea36735d327c70c6ee4233c67553c3fb99e4177a6d962b7d22d2f59fd56d82d1deda201a419737d01c838ffbb339a13d45e5289e0628465e7ade77d628f45e3a35b783049e75645660ac123a70d5b768199edce54044bb81f99e6d2fa481c64c256b477e191dc14eefd98acae7812bb2a246db2dee23c75b1b08650618dcd85bdd37901ca177132c04058901ecfc9f8d58851aafa90cdcaae9cdafae81ca571a2b730769acea747ab5be21bae9505f2edf5c2a5099ade9384ff0c8cc91cdf9edfa53a40d05f05326bcf75b9fd697f09f3843</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">这是一篇加密文章，请输入密码查看</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+    <title>RDMA 入门笔记（一）</title>
+    <url>/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>此系列文章主要转载知乎用户 Savir 的 RDMA 杂谈<a href="https://zhuanlan.zhihu.com/p/164908617">系列文章</a>，有些删改。</p>
+</blockquote>
+<h1 id="RDMA-概述"><a href="#RDMA-概述" class="headerlink" title="RDMA 概述"></a><a href="https://zhuanlan.zhihu.com/p/138874738">RDMA 概述</a></h1><blockquote>
+<p>主要内容：RDMA技术是什么，它是如何产生的？我们在什么场景下需要使用RDMA技术代替传统的以太网？这项技术的主要贡献者和使用者是谁？</p>
+</blockquote>
+<h2 id="什么是-DMA"><a href="#什么是-DMA" class="headerlink" title="什么是 DMA"></a>什么是 DMA</h2><p>DMA 全程为 Direct Memory Access，即直接内存访问。意思是外设对内存的读写过程可以不用CPU参与而直接进行。</p>
+<span id="more"></span>
+
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522023923582.jpeg" alt="img"></p>
+<p>上图为无 DMA 时候，假设I&#x2F;O设备为一个普通网卡，为了从内存拿到需要发送的数据，然后组装数据包发送到物理链路上，网卡需要通过总线告知CPU自己的数据请求。然后CPU将会把内存缓冲区中的数据复制到自己内部的寄存器中，再复制到I&#x2F;O设备的存储空间中。如果数据量比较大，那么很长一段时间内 CPU 都会忙于搬移数据，而无法投入到其他工作中去。</p>
+<blockquote>
+<ul>
+<li><p><strong>网卡：Network Interface Card（NIC）</strong>，也称网络适配器，发送和接收数据。</p>
+<ul>
+<li><p>物理层连接：它提供网口，让设备可以插网线，或者通过无线网卡连 WiFi，建立物理 &#x2F; 无线的网络通路。</p>
+</li>
+<li><p>数据链路层：</p>
+<ol>
+<li>数据封装与解析：把计算机要发送的数据，按照网络协议（比如以太网协议）封装成 “帧”，再发出去；收到数据时，再把帧解析还原成计算机能处理的数据。</li>
+<li>MAC 地址管理：每块网卡都有一个全球唯一的 MAC 地址，用来在局域网里定位设备。</li>
+<li>数据传输控制：负责处理传输中的错误校验、流量控制，保证数据稳定传输。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>普通网卡</strong>传输数据时，需要 CPU 参与拷贝数据，而<strong>RDMA 网卡</strong>（也叫 <strong>RNIC</strong>） 可以绕过 CPU，直接在两台机器的内存之间传输数据，这也是 RDMA 能做到低延迟、高吞吐的关键硬件基础。</p>
+</blockquote>
+<p>CPU的最主要工作是计算，而不是进行数据复制，这种工作属于白白浪费了它的计算能力。为了给CPU“减负”，让它投入到更有意义的工作中去，后来人们设计了DMA机制：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522024935577.jpeg" alt="img"></p>
+<p>总线上又挂了一个 DMA 控制器专门用来读写内存的设备。以后当网卡想要从内存中拷贝数据时，除了一些必要的控制命令外，整个数据复制过程都是由 DMA 控制器完成的。过程跟CPU复制是一样的，只不过这次是把内存中的数据通过总线复制到 DMA 控制器内部的寄存器中，再复制到I&#x2F;O设备的存储空间中。CPU除了关注一下这个过程的开始和结束以外，其他时间可以去做其他事情。</p>
+<p>DMA控制器一般是和I&#x2F;O设备在一起的，也就是说一块网卡中既有负责数据收发的模块，也有DMA模块。</p>
+<h2 id="是什么是-RDMA"><a href="#是什么是-RDMA" class="headerlink" title="是什么是 RDMA"></a>是什么是 RDMA</h2><p>RDMA（ Remote Direct Memory Access ）意为远程直接地址访问，通过RDMA，本端节点可以“直接”访问远端节点的内存。所谓直接，指的是可以像访问本地内存一样，绕过传统以太网复杂的TCP&#x2F;IP网络协议栈读写远端内存，而这个过程对端是不感知的，而且这个读写过程的大部分工作是由硬件而不是软件完成的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522025311163.jpeg" alt="img"></p>
+<p>如上图所示（图中箭头仅做示意，不表示实际逻辑或物理关系）：传统网络中，“节点A给节点B发消息”实际上做的是“把节点A内存中的一段数据，通过网络链路搬移到节点B的内存中”，而这一过程无论是发端还是收段，都需要CPU的指挥和控制，包括网卡的控制，中断的处理，报文的封装和解析等等。</p>
+<p>上图中左边的节点在内存用户空间中的数据，需要经过CPU拷贝到内核空间的缓冲区中，然后才可以被网卡访问，这期间数据会经过软件实现的TCP&#x2F;IP协议栈，加上各层头部和校验码，比如TCP头，IP头等。网卡通过DMA拷贝内核中的数据到网卡内部的缓冲区中，进行处理后通过物理链路发送给对端。<br>对端收到数据后，会进行相反的过程：从网卡内部存储空间，将数据通过DMA拷贝到内存内核空间的缓冲区中，然后CPU会通过TCP&#x2F;IP协议栈对其进行解析，将数据取出来拷贝到用户空间中。</p>
+<blockquote>
+<ul>
+<li><p>用户空间（User Space）：普通应用程序，只有自己的用户进程能直接读写，不能直接操作硬件。</p>
+</li>
+<li><p>内核空间（Kernel Space）：操作系统内核，只有内核代码（驱动、系统调用）能直接访问，最高权限，能直接操作硬件、访问所有物理内存</p>
+</li>
+</ul>
+<p>网卡不能直接访问用户内存（即分区）的好处：</p>
+<ol>
+<li>安全隔离，所有对硬件的操作都必须通过内核来中转，保证系统稳定。</li>
+<li>硬件限制：早期网卡不支持用户地址，传统网卡只能理解<strong>物理地址</strong>或者内核管理的虚拟地址，不能直接识别用户进程的虚拟地址。网卡没有进程上下文，不知道当前是哪个进程在运行，根本没法正确解析用户地址。</li>
+</ol>
+</blockquote>
+<p>可以看到，即使有了DMA技术，上述过程还是对CPU有较强的依赖。而使用了RDMA技术之后，这一过程可以简单的表示成下面的示意图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522025537375.jpeg" alt="img"></p>
+<p>同样是把本端内存中的一段数据，复制到对端内存中，在使用了RDMA技术时，两端的CPU几乎不用参与数据传输过程（只参与控制面）。本端的网卡直接从内存的用户空间DMA拷贝数据到内部存储空间，然后硬件进行各层报文的组装后，通过物理链路发送到对端网卡。对端的RDMA网卡收到数据后，剥离各层报文头和校验码，通过DMA将数据直接拷贝到用户空间内存中。</p>
+<h2 id="RDMA-的优势"><a href="#RDMA-的优势" class="headerlink" title="RDMA 的优势"></a>RDMA 的优势</h2><p>RDMA 主要应用在高性能计算（HPC）领域和大型数据中心当中，并且设备相对普通以太网卡要昂贵不少。由于使用场景和价格的原因，RDMA目前主要是一些大型互联网企业在部署和使用。</p>
+<p>RDMA 有以下几个特点：</p>
+<ul>
+<li><strong>0拷贝</strong>：指的是不需要在用户空间和内核空间中来回复制数据。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522030944600.png" alt="image-20260522030944558"></p>
+<p>在传统的Socket通信流程中CPU需要多次把数据在内存中来回拷贝。而通过RDMA技术，我们可以直接访问远端已经注册的内存区域。</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>传统 TCP&#x2F;IP 网络</th>
+<th>RDMA 网络</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>CPU 拷贝次数</strong></td>
+<td>发送端：用户 → 内核（1 次）接收端：内核 → 用户（1 次）<strong>共 2 次 CPU 拷贝</strong></td>
+<td>0 次 CPU 拷贝（数据直接在用户内存 ↔ 网卡之间传输）</td>
+</tr>
+<tr>
+<td><strong>协议栈处理位置</strong></td>
+<td>CPU 内核态软件处理（TCP&#x2F;IP 协议栈）</td>
+<td>网卡硬件卸载处理（RoCE&#x2F;InfiniBand 协议栈）</td>
+</tr>
+<tr>
+<td><strong>CPU 开销</strong></td>
+<td>极高（拷贝 + 协议栈 + 中断处理）</td>
+<td>极低（几乎无参与，仅少量控制）</td>
+</tr>
+<tr>
+<td><strong>延迟</strong></td>
+<td>较高（几十微秒级，受 CPU 调度影响）</td>
+<td>极低（微秒级，甚至亚微秒级）</td>
+</tr>
+<tr>
+<td><strong>依赖</strong></td>
+<td>普通网卡即可</td>
+<td>专用 RDMA 网卡（RNIC）+ 支持的网络架构</td>
+</tr>
+<tr>
+<td><strong>数据路径（发送端）</strong></td>
+<td>用户内存 → CPU 拷贝 → 内核缓冲区 → DMA 拷贝 → 网卡</td>
+<td>用户内存 → 网卡（直接 DMA 传输）</td>
+</tr>
+<tr>
+<td><strong>数据路径（接收端）</strong></td>
+<td>网卡 → DMA 拷贝 → 内核缓冲区 → CPU 拷贝 → 用户内存</td>
+<td>网卡 → 用户内存（直接 DMA 传输）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>内核Bypass</strong>：指的是IO（数据）流程可以绕过内核，即在用户层就可以把数据准备好并通知硬件准备发送和接收。避免了系统调用和上下文切换的开销。</p>
+<p>  <img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522031538158.jpeg" alt="img"></p>
+<p>  上图上下两部分分别是基于Socket的和基于RDMA的一次收-发流程，左右分别为两个节点。可以明显的看到Socket流程中在软件中多了一次拷贝动作。而RDMA绕过了内核同时也减少了内存拷贝，数据可以直接在用户层和硬件间传递。</p>
+</li>
+<li><p><strong>CPU卸载</strong>：指的是可以在远端节点CPU不参与通信的情况下（当然要持有访问远端某段内存的“钥匙”才行）对内存进行读写，这实际上是<strong>把报文封装和解析放到硬件中做了</strong>。而传统的以太网通信，双方CPU都必须参与各层报文的解析，如果数据量大且交互频繁，对CPU来讲将是一笔不小的开销，而这些被占用的CPU计算资源本可以做一些更有价值的工作。</p>
+</li>
+</ul>
+<p>通信领域两大出场率最高的<strong>性能指标</strong>就是“<strong>带宽</strong>”和“<strong>时延</strong>”。简单的说，所谓带宽指的是指单位时间内能够传输的数据量，而时延指的是数据从本端发出到被对端接收所耗费的时间。<br>因为上述几个特点，相比于传统以太网，RDMA技术同时做到了更高带宽和更低时延，所以其在带宽敏感的场景——比如海量数据的交互，时延敏感——比如多个计算节点间的数据同步的场景下得以发挥其作用。</p>
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>RDMA本身指的是一种技术，具体协议层面，包含<a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=Infiniband&zhida_source=entity">Infiniband</a>（IB），RDMA over Converged Ethernet（RoCE）和internet Wide Area RDMA Protocol（iWARP）。三种协议都符合RDMA标准，使用相同的上层接口，在不同层次上有一些差别。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522032334157.jpeg" alt="img"></p>
+<p>上图对几种常见的RDMA技术的协议层次做了非常清晰的对比。</p>
+<h3 id="infiniband"><a href="#infiniband" class="headerlink" title="infiniband"></a>infiniband</h3><p>2000年由<a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=IBTA&zhida_source=entity">IBTA</a>（InfiniBand Trade Association）提出的IB协议是当之无愧的核心，其规定了一整套完整的链路层到传输层（非传统OSI七层模型的传输层，而是位于其之上）规范，但是其无法兼容现有以太网，除了需要支持IB的网卡之外，企业如果想部署的话还要重新购买配套的交换设备。</p>
+<h3 id="RoCE"><a href="#RoCE" class="headerlink" title="RoCE"></a>RoCE</h3><p>RoCE从英文全称就可以看出它是基于以太网链路层的协议，v1版本网络层仍然使用了IB规范，而v2使用了UDP+IP作为网络层，使得数据包也可以被路由。RoCE可以被认为是IB的“低成本解决方案”，将IB的报文封装成以太网包进行收发。由于RoCE v2可以使用以太网的交换设备，所以现在在企业中应用也比较多，但是相同场景下相比IB性能要有一些损失</p>
+<h3 id="iWARP"><a href="#iWARP" class="headerlink" title="iWARP"></a>iWARP</h3><p>iWARP协议是IETF基于TCP提出的，因为TCP是面向连接的可靠协议，这使得iWARP在面对有损网络场景（可以理解为网络环境中可能经常出现丢包）时相比于RoCE v2和IB具有更好的可靠性，在大规模组网时也有明显的优势。但是大量的TCP连接会耗费很多的内存资源，另外TCP复杂的流控等机制会导致性能问题，所以从性能上看iWARP要比UDP的RoCE v2和IB差。</p>
+<p>需要注意的是，虽然有软件实现的RoCE和iWARP协议，但是真正商用时上述几种协议都需要专门的硬件（网卡）支持。</p>
+<p>iWARP本身不是由Infiniband直接发展而来的，但是它继承了一些Infiniband技术的设计思想。这三种协议的关系如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522032451596.jpeg" alt="img"></p>
+<h2 id="玩家"><a href="#玩家" class="headerlink" title="玩家"></a>玩家</h2><h3 id="标准-生态组织"><a href="#标准-生态组织" class="headerlink" title="标准&#x2F;生态组织"></a>标准&#x2F;生态组织</h3><p>两大组织——<a href="https://www.infinibandta.org/">IBTA</a> 和 <a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=OFA&zhida_source=entity">OFA</a>。</p>
+<h3 id="IBTA"><a href="#IBTA" class="headerlink" title="IBTA"></a>IBTA</h3><p>成立于1999年，负责制定和维护Infiniband协议标准。IBTA独立于各个厂商，通过赞助技术活动和推动资源共享来将整个行业整合在一起，并且通过线上交流、营销和线下活动等方式积极推广IB和RoCE。</p>
+<p>IBTA会对商用的IB和RoCE设备进行协议标准符合性和互操作性测试及认证，由很多大型的IT厂商组成的委员会领导，其主要成员包括博通，HPE，IBM，英特尔，Mellanox和微软等，华为也是IBTA的会员。</p>
+<h3 id="OFA"><a href="#OFA" class="headerlink" title="OFA"></a>OFA</h3><p>成立于2004年的非盈利组织，负责开发、测试、认证、支持和分发独立于厂商的开源跨平台infiniband协议栈，2010年开始支持RoCE。其对用于支撑RDMA&#x2F;Kernel bypass应用的<a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=OFED&zhida_source=entity">OFED</a>（OpenFabrics Enterprise Distribution）软件栈负责，保证其与主流软硬件的兼容性和易用性。OFED软件栈包括驱动、内核、中间件和API。</p>
+<p>上述两个组织是配合关系，IBTA主要负责开发、维护和增强Infiniband协议标准；OFA负责开发和维护Infiniband协议和上层应用API。</p>
+<h2 id="开发社区"><a href="#开发社区" class="headerlink" title="开发社区"></a>开发社区</h2><h3 id="Linux社区"><a href="#Linux社区" class="headerlink" title="Linux社区"></a>Linux社区</h3><p>Linux内核的RDMA子系统还算比较活跃，经常会讨论一些协议细节，对框架的修改比较频繁，另外包括华为和Mellanox在内的一些厂商也会经常对驱动代码进行修改。</p>
+<p>邮件订阅：<a href="https://link.zhihu.com/?target=http://vger.kernel.org/vger-lists.html%23linux-rdma">http://vger.kernel.org/vger-lists.html#linux-rdma</a></p>
+<p>代码位于内核drivers&#x2F;infiniband&#x2F;目录下，包括框架核心代码和各厂商的驱动代码。</p>
+<p>代码仓：<a href="https://link.zhihu.com/?target=https://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma.git/">https://git.kernel.org/pub/scm/</a></p>
+<h3 id="RDMA社区"><a href="#RDMA社区" class="headerlink" title="RDMA社区"></a>RDMA社区</h3><p>对于上层用户，IB提供了一套与Socket套接字类似的接口——<a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=libibverbs&zhida_source=entity">libibverbs</a>，前文所述三种协议都可以使用。参考着协议、API文档和示例程序很容易就可以写一个Demo出来。本专栏中的RDMA社区专指其用户态社区，在github上其仓库的名字为linux-rdma。</p>
+<p>主要包含两个子仓库：</p>
+<ul>
+<li>rdma-core</li>
+</ul>
+<p>用户态核心代码，API，文档以及各个厂商的用户态驱动。</p>
+<ul>
+<li>perftest</li>
+</ul>
+<p>一个功能强大的用于测试RDMA性能的工具。</p>
+<p>代码仓：<a href="https://link.zhihu.com/?target=https://github.com/linux-rdma/">https://github.com/linux-rdma/</a></p>
+<h2 id="UCX"><a href="#UCX" class="headerlink" title="UCX"></a><a href="https://zhida.zhihu.com/search?content_id=118992942&content_type=Article&match_order=1&q=UCX&zhida_source=entity">UCX</a></h2><p>UCX是一个建立在RDMA等技术之上的用于数据处理和高性能计算的通信框架，RDMA是其底层核心之一。我们可以将其理解为是位于应用和RDMA API之间的中间件，向上层用户又封装了一层更易开发的接口。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260522032815636.jpeg" alt="img"></p>
+<p>代码仓：<a href="https://link.zhihu.com/?target=https://github.com/openucx/ucx">https://github.com/openucx/ucx</a></p>
+<h2 id="硬件厂商"><a href="#硬件厂商" class="headerlink" title="硬件厂商"></a>硬件厂商</h2><p>设计和生产IB相关硬件的厂商有不少，包括Mellanox、华为、收购了Qlogic的IB技术的Intel，博通、Marvell，富士通等等，这里就不逐个展开了，仅简单提一下Mellanox和华为。</p>
+<ul>
+<li><p>Mellanox：IB领域的领头羊，协议标准制定、软硬件开发和生态建设都能看到Mellanox的身影，其在社区和标准制定上上拥有最大的话语权。</p>
+</li>
+<li><p>华为：国产。</p>
+</li>
+</ul>
+<h2 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h2><p>微软、IBM和国内的阿里、京东都正在使用RDMA，另外还有很多大型IT公司在做初步的开发和测试。在数据中心和高性能计算场景下，RDMA代替传统网络是大势所趋。</p>
+<h1 id="比较基于Socket与RDMA的通信"><a href="#比较基于Socket与RDMA的通信" class="headerlink" title="比较基于Socket与RDMA的通信"></a><a href="https://zhuanlan.zhihu.com/p/139548242">比较基于Socket与RDMA的通信</a></h1><blockquote>
+<p>主要内容：传统以太网通过对上层应用提供了Socket接口作为API，而RDMA协议栈则向上层提供了verbs接口。以上两种通信方式在数据从本端用户的内存空间到达对端用户的内存空间这一过程中存在显著的差异。本文想通过对比这些差异告诉读者，为何我们要使用RDMA技术。</p>
+</blockquote>
+]]></content>
       <categories>
-        <category>博客</category>
+        <category>RDMA</category>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-        <tag>github</tag>
-        <tag>博客</tag>
+        <tag>RDMA</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2026/04/18/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<span id="more"></span>
-
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>Typora + PicGo + Github 图床配置教程</title>
@@ -629,5 +609,25 @@
         <tag>PicGo</tag>
         <tag>Typora</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2026/04/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<span id="more"></span>
+
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
 </search>
