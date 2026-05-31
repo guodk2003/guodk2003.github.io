@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"vs","dark":"vs2015"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":true},"fold":{"enable":true,"height":800},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="这是一篇加密文章，请输入密码查看">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hello World">
 <meta property="og:url" content="http://example.com/2026/04/18/hello-world/index.html">
 <meta property="og:site_name" content="gdk&#39;blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="这是一篇加密文章，请输入密码查看">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-18T15:19:44.542Z">
-<meta property="article:modified_time" content="2026-04-19T17:50:54.520Z">
+<meta property="article:modified_time" content="2026-05-31T10:39:05.581Z">
 <meta property="article:author" content="gdk">
 <meta name="twitter:card" content="summary">
 
@@ -149,7 +149,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -162,7 +162,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -177,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -531,7 +530,7 @@ if(canvas.getContext){
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-20 01:50:54" itemprop="dateModified" datetime="2026-04-20T01:50:54+08:00">2026-04-20</time>
+      <time title="修改时间：2026-05-31 18:39:05" itemprop="dateModified" datetime="2026-05-31T18:39:05+08:00">2026-05-31</time>
     </span>
 
   
@@ -565,22 +564,18 @@ if(canvas.getContext){
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<span id="more"></span>
-
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+    <div class="post-body" itemprop="articleBody"><div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="窃取机密失败..." data-whm="窃取机密失败，仍可尝试">
+  <script id="hbeData" type="hbeData" data-hmacdigest="2ff0b5801172e2b9a4e19b32d6a58f385dbb38434dd5c0977562ecfc20d34ace">17851fe798c0443d4d6f7cb76297144bcc56fba161dfaff51e593c8cd63c0f4a636c60932ee12b50e9b859d5e2d884d74eb357c9436cb4650843c90ddf31a00d3606e2c781f3c62498341c99b7e215c0bcf5d79d2b7de7e6abefa26635c7fcc4792de2b201fcd43a7d01d9fdf1b654044e6a728ab7862ee1efedb4cc3fec473a834aa4829f2c7ac993cb3e098c1faee0de538fcbd36b32af9b0d2b0d7726f702b81d4d2d2d008142827827a83857ec4f721a33eeeca2782d684b74aa3bfb64dfbd69e31c6b30ecbe692760da8faf6625de8998f5bfa7f9a8b6679b5ea7edbea3e4c5efa45d2da13c623f0a1769fe7d1f8e288adc87333864d0f2be157c35f23de00d9fcc1a5f67c43827a523b5ac2d8924c903a47f57be4d6f8fe7b8b275647c50aeef4ccd86ab3ce5fd9f3db82a3d5a1d204820fd2911167c00ce4a9b011e5fca6af32332a62258ee40a52e4e9bfd95af160c62b35cfb34dc45c384315a0d55e693c2178dac4ccbda0cba59e4c9b2102c30e08450e26bf842ee8f23931ed882984c21f83a73cd4c88cfaf72b74310370deb312ea9ba4e0a150bf6fb252c3216a5c1969aee930dcb9bdcfa07aae5ba449147cd3064e1acdb0b9a9af291dcf7eb99dfb9e743d42ae14d48a0511fa0e268f8cb0c4ecc28de72ec7cd68407d505a3dfe732bd5d82bc67c42362aebbca8dc07041dd559378523c67ac3fc55ebb1de0f5a50cbfd90e7d0ddca2416809d5d18758d0a024cfab6a3707318aa3cb5a6f02821c89430672b6af45c75195032b7928d8bf4e9381de97960e45c3207a8dd5f51ea096b00705b688d84b59c6ed9039e9765da5c4923ddb295f81e46c9ddbd245b2752f560b5d5ae13b9c4c26742901d0a79db52856966607ba47fc9b2f21289031a84b05dbfc1c14680d4e76d627190b2945526f3be98eafc9539b506783adbf0e3bcaa24aca2ae015517f183bfa8818d785bb3fd5772080227fe7ba9709755bc19d8af299105ec9ba3a87bf969e9b4ce9354c9236e866aa705b15f44331643c63b3e8b97c9cebeff6cf81459c9c2dada4edfa2b0face5c3fb7ba36807e19e806487ac1b9646ca0d08ef43690069729cc853fd157dcd29c0f9f2d5cec86d86d4dd97e5b5b3183047255f43ce4d6b484ec8f354998b0815a95f2bb2964c62897ee7befbfdcfbb8dcdde44ef4e4286dd5c3764c19f1be066eee0f67f5a6c22ee5ef27153f9e05a7cf3ee7b777422ffd2b106effa703d29f464e328296588e7e48f7517692695c796af424d1faa1657a481e8d1def42bee657913e71ebf8b795c20beba8de5bc42b648607a1b9ccae109e95f00658e62b3399d183d52a73bd05f557d5852f50be44af8e8c52366c216653663a16878c378d1367b6c9f626efbd2a4f20ba4785358680e3156ed6184895a3cfec2aebabc2dcbba2b562e9594d977a7ef373c271bab73480692a2deb0a11b73675674dde1154ca35a049e034f5a123b91ef6ded30643b7a0c3476c36292895513d5746668558cd6ddecf3b24e07692f92007eae068b14a34497697ef0d0be1fd3d37b088d4f2370ef7c648077aadcb95f9f2d0d68522968c9b2d5ab5286d4c0195b980f90924e1b9c730400337837a89d081be7b8861a312ec76e7e72a7173b86c55d8c4e69d5999d836098f702e6d160e89d0eb3d095d83796fefa2a3b0dafdbe168a84e401d857b4610e7d8ccd137e4f5b0ace226d7ea4e4b2039a324eae543b2299ca5e9167338eecfe4e5fb859817615b6ea9b74ba197053264e323f49e516a8acfa321868d78b2bbfd811eda264ecaf4926676f195dcbd79f382cfee44a5bd185128a9fa25dc7ae006b7eef9bf18a659a72ea204ee8d6bc1f73338323ae3727b707613fef3f1957afd41c2336caefb356210f870a236c024fa9f2927ed52a49047ae197e23018a875898e504d26fb4e3a56990034185d91d528d37172005d9b444e4c8099f11d3893726a707450d4174b7dd04795bc0747ed0eabd2f3e9c62bb317c01646aa41f2e51e332d1b59df2d2ae62fb3d5efd9df5a6eb873262995c6921dfce70dc3b6516df50f215e9ac6e29263e1eb5476166d3dce0ace15bb0905d6ab6a226f418f82d8e04d5ef01512f84996bc0c08beea8619a83edd363c2993d72f9a889d65e6c3811119bae3c8f0af7355464912bbb92d411c453e0003995d9fae81cdf4c0ba677416b898636c1c3f6bea53cd31ce978982326a727d6c50169bf4d0148f93e02b2ccea324fc759aea957efd8b3a578dca016fe779303a21f7c21e94f3eb07fd00b86e8548703bccedfad89e1db2e0d92c848be1cd6dbd7769f6377fb1068cd550196b79961c1df366f58352258c87391d58ab51de3f5cc2837495b5c02f3cf0f0a7d43e3466dfdb1a82a1e5e6c29d2c1453534f6cd7db06c06575596837cb73aed418fd90f897062c2d8bfdf46a6685fe8c5e789e29680f8a2c9072c3f4fa96a874275ccbe23b7dc54b0c402dbfd2c27a0a996a107574cec79d75b4cecde6450138b42d4bc99b587f13db04834c23e486919dba50781341e11e47f80fac9a1913207e7eddb95f54a9c72a5a1c7c4598f1a09631e6c78ee77d36942e83a0fc13f23aae401fb9036397a6637442dfa534e98f65eeeb360139ef1af1441f7965d7be1d974afc1c0147bf17e55e0601a3372409b9320b184320eaea48e80ae9f14f1f4e6cf789fb7c03a926fdeaced2f9ac788ad69e6b073ec314136b756000656d3d75ee5e68198fb76bf3ea7df64c71541ae90ce2ae8f84426c6a778ddc31cb2894969dacd4f8fb2988723b1031eb9b09e8932206ff29cf3936f123fb177d2f6325676619d42dc8ef2797efe583692fae91f4315746b2f0c1a4ddaa4d2f17749d6f5b6227788f8ddb64ec5f546d14cb6258f5c72d77114d0187c26c35196d3669fc537a7579eafc77fbc79aef4d6bfec18ec98df96240104fa3be1c9fdb58961c4989f92480ad825961d0b496a0cc82cd0281d169a92e3c122c345a7f8b759959bb1a97bad2982ab1334902622ffddfd444f5420f2c8dab814797cae2e2ea73e7c9ffd6b84cd8e946bb1b6645d66569236f24a79c71a12b602b99704a4c690ec13655d564872e793396bff878ef3f4cfec009e9f494ba8a0b7c691bed46e9242eb18ea16cd7ac3e19f02f259098a4d0871dc3075c3041c</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">这是一篇加密文章，请输入密码查看</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
     </div>
 
     
@@ -612,8 +607,8 @@ if(canvas.getContext){
             <div class="post-nav-item">
             </div>
             <div class="post-nav-item">
-                <a href="/2026/04/23/Hexo-Next-Github-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="next" title="Hexo - Next - Github 从零开始搭建博客">
-                  Hexo - Next - Github 从零开始搭建博客 <i class="fa fa-angle-right"></i>
+                <a href="/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="RDMA 入门笔记（一）">
+                  RDMA 入门笔记（一） <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -646,13 +641,13 @@ if(canvas.getContext){
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">13k</span>
+    <span title="站点总字数">15k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23 分钟</span>
+    <span title="站点阅读时长">27 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
