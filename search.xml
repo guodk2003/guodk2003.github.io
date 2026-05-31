@@ -311,6 +311,31 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo - Next - Github 从零开始搭建博客</title>
+    <url>/2026/04/23/Hexo-Next-Github-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="窃取机密失败..." data-whm="窃取机密失败，仍可尝试">
+  <script id="hbeData" type="hbeData" data-hmacdigest="d5db5fe5ab00b27ae0836f194ffd69fbb2dc9e14180c100c7a01b5588dc37db4">17851fe798c0443d4d6f7cb76297144bf04c740de7942ff331e542181351b6e3963201f82ff4fba2c2189b3a1c1f566f4ac76fe32c0a87e7131300c232e78992ed9f021a58db47447a5ed33c122c9758ceac37ea3c830ccf9d98094c52e58cefe5e7fd5e6edabe85422addfd2a9352174e53d8120e075c46081e8e7905d46bb2f7db31d5c7a13542cc1929910b183c6c673dc3d9998fc9baac2691838dd2ea36735d327c70c6ee4233c67553c3fb99e4177a6d962b7d22d2f59fd56d82d1deda201a419737d01c838ffbb339a13d45e5289e0628465e7ade77d628f45e3a35b783049e75645660ac123a70d5b768199edce54044bb81f99e6d2fa481c64c256b477e191dc14eefd98acae7812bb2a246db2dee23c75b1b08650618dcd85bdd37901ca177132c04058901ecfc9f8d58851aafa90cdcaae9cdafae81ca571a2b730769acea747ab5be21bae9505f2edf5c2a5099ade9384ff0c8cc91cdf9edfa53a40d05f05326bcf75b9fd697f09f3843</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">这是一篇加密文章，请输入密码查看</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>博客</category>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>github</tag>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RDMA 入门笔记（一）</title>
     <url>/2026/05/22/RDMA%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -476,31 +501,6 @@
       </categories>
       <tags>
         <tag>RDMA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo - Next - Github 从零开始搭建博客</title>
-    <url>/2026/04/23/Hexo-Next-Github-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="窃取机密失败..." data-whm="窃取机密失败，仍可尝试">
-  <script id="hbeData" type="hbeData" data-hmacdigest="d5db5fe5ab00b27ae0836f194ffd69fbb2dc9e14180c100c7a01b5588dc37db4">17851fe798c0443d4d6f7cb76297144bf04c740de7942ff331e542181351b6e3963201f82ff4fba2c2189b3a1c1f566f4ac76fe32c0a87e7131300c232e78992ed9f021a58db47447a5ed33c122c9758ceac37ea3c830ccf9d98094c52e58cefe5e7fd5e6edabe85422addfd2a9352174e53d8120e075c46081e8e7905d46bb2f7db31d5c7a13542cc1929910b183c6c673dc3d9998fc9baac2691838dd2ea36735d327c70c6ee4233c67553c3fb99e4177a6d962b7d22d2f59fd56d82d1deda201a419737d01c838ffbb339a13d45e5289e0628465e7ade77d628f45e3a35b783049e75645660ac123a70d5b768199edce54044bb81f99e6d2fa481c64c256b477e191dc14eefd98acae7812bb2a246db2dee23c75b1b08650618dcd85bdd37901ca177132c04058901ecfc9f8d58851aafa90cdcaae9cdafae81ca571a2b730769acea747ab5be21bae9505f2edf5c2a5099ade9384ff0c8cc91cdf9edfa53a40d05f05326bcf75b9fd697f09f3843</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">这是一篇加密文章，请输入密码查看</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>博客</category>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>github</tag>
-        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
