@@ -1258,7 +1258,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #61ff04;
+    background: #df66ac;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2844,11 +2844,11 @@ body {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 16px 48px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05);
-  padding: 50px 50px 10px /* 上 左右 下 */;
+  padding: 50px 30px 10px /* 上 左右 下 */;
 }
 @media (max-width: 767px) {
   .post-block {
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
 }
@@ -2862,7 +2862,7 @@ body.darkmode--activated .post-block {
 }
 @media (max-width: 767px) {
   body.darkmode--activated .post-block {
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
 }
