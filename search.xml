@@ -1,129 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Typora + PicGo + Github 图床配置教程</title>
-    <url>/2026/05/27/Typora%20+%20PicGo%20+%20Github%20%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="一、建立-Github-仓库"><a href="#一、建立-Github-仓库" class="headerlink" title="一、建立 Github 仓库"></a>一、建立 Github 仓库</h1><p>登录 github，点击右上角 “+” 号，选择 “New repository” 新建仓库用来存放上传的图片。</p>
-<span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527013948116.png" alt="image-20260527013940946"></p>
-<p>在创建仓库页面，按如下图依次填写，然后点击 ”Create repository”。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527014854002.png" alt="image-20260527014853898" style="width:67%" />
-
-<p>依次进入 settings&#x2F;Developer settings&#x2F;Personal access tokens 来生成一个 token 用于 PicGo 访问 Github。</p>
-<blockquote>
-<p>GitHub Token 是访问私有仓库的身份验证凭据，确保只有授权用户才能上传和访问图片。</p>
-</blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527015411762.png" alt="image-20260527015411700"></p>
-<p>点击  “Generate new token(classic)” 按钮。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527015724113.png" alt="image-20260527015723998" style="width:80%" />
-
-<ul>
-<li>Note：描述名称，可取如 ”PicGo” 等名称显示其用途。</li>
-<li>Expiration：选择 “No expiration” 永不过期。</li>
-<li>Select scopes：勾上 ”repo” 的权限。</li>
-</ul>
-<p>点击 “Generate token” 生成令牌，得到 token 后保存（只出现一次），后面会用上。</p>
-<h1 id="二、PicGo"><a href="#二、PicGo" class="headerlink" title="二、PicGo"></a>二、PicGo</h1><ol>
-<li><strong>什么是图床</strong></li>
-</ol>
-<p>图床就是专门用来存图片、并给你可直接用的图片链接的在线服务或服务器。常见的图床有阿里云 OSS、腾讯云 COS、PicGo 等等，笔者采用 PicGo 配置。</p>
-<ol start="2">
-<li><strong>下载 PicGo</strong></li>
-</ol>
-<p>下载 <a href="https://github.com/Molunerfinn/PicGo/releases">链接</a>，根据电脑配置选择合适版本，笔者电脑设备为 windows10，采用如下版本下载。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161244800.png" style="width:50%" />
-
-<p>下载后进行安装，记住安装路径。</p>
-<ol start="3">
-<li><strong>配置 PicGo</strong></li>
-</ol>
-<p>进入 PicGo 后，将如下框住地方修改为 Github。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161502663.png" style="width:67%" />
-
-<p>点击图床设置，选择 Github 设置，按如下格式设置。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518151358906.png" alt="image-20260518151358849" style="width:67%" />
-
-<ul>
-<li>图床配置名：任取，方便记忆</li>
-<li>仓库名：Github 用户名&#x2F;仓库名</li>
-<li>分支名：main</li>
-<li>Token：在 Github 仓库配置中保存的 Token 复制过来</li>
-<li>存储路径：可设可不设，设置 img&#x2F; 方便管理</li>
-<li>自定义域名：可以加快访问图片的速度，<a href="https://cdn.jsdelivr.net/gh/[Github">https://cdn.jsdelivr.net/gh/[Github</a> 用户名]&#x2F;[仓库名]@main</li>
-</ul>
-<p>  点击确定，配置完成。<br>  此外，还需点击 PicGo 设置的 sever，设置监听端口需为 36677。</p>
- <img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161750218.png" style="width:80%" />
-
-<h1 id="三、设置-Typora"><a href="#三、设置-Typora" class="headerlink" title="三、设置 Typora"></a>三、设置 Typora</h1><p>点击左上角文件，进入偏好设置</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527020739087.png" alt="image-20260527020738982" style="width:80%" />
-
-<p>进入图像设置，插入图片时选择上传图片，并将如图所示的选项打勾，上传服务设定设置为PicGo（app），下面填写完整的 PicGo 安装的路径（路径包含 PicGo.exe）。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527021050758.png" alt="image-20260527021050675" style="width:80%" />
-
-<p>配置完成后点击左下角验证图片上传选项，出现如下界面则说明配置成功！🎉</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527021249567.png" alt="image-20260527021249500" style="width:80%" />
-
-<h1 id="四、Typora-的一些设置"><a href="#四、Typora-的一些设置" class="headerlink" title="四、Typora 的一些设置"></a>四、Typora 的一些设置</h1><blockquote>
-<p>以下设置配置完都需重新启动 Typora。</p>
-</blockquote>
-<h2 id="1-plugin插件安装"><a href="#1-plugin插件安装" class="headerlink" title="1. plugin插件安装"></a>1. plugin插件安装</h2><p>参考b站 <a href="https://www.bilibili.com/video/BV1DtrbYrEgU/?spm_id_from=333.1387.favlist.content.click&vd_source=73ddc96ea81759ccdce58fa735a6e207">up 主</a>的视频或官方视频，在<a href="https://github.com/obgnail/typora_plugin/tree/master">官方网站</a>找到对应的版本进行安装</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527023818337.png" alt="image-20260527023818165"></p>
-<p>解压缩后，将解压缩的叫 ”plugin” 的文件夹复制到 Typora 的安装路径 resources 文件夹下（与window.html 在同一文件夹下），然后进入 plugin 文件夹下的 bin 文件夹，双击install_windows_amd_x64.exe 运行。插件即安装成功。🎉</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527024403275.png" alt="image-20260527024403199"></p>
-<h2 id="2-去掉typora的自动编号渲染功能"><a href="#2-去掉typora的自动编号渲染功能" class="headerlink" title="2. 去掉typora的自动编号渲染功能"></a>2. 去掉typora的自动编号渲染功能</h2><blockquote>
-<p>参考博客园<a href="https://www.cnblogs.com/LiYi-han/p/19003461">文章</a></p>
-</blockquote>
-<p>在 Typora 上写 md 文件时，从二级标题起，软件都给自动编号了，但问题是这只是一种渲染效果。同样的文档导到别的地方，比如博客园，编号就没有了，所以选择去掉自动标号渲染的功能。</p>
-<blockquote>
-<p>前置：已安装 plugin 插件</p>
-</blockquote>
-<p>点开 .\Typora\resources\plugin\global\settings 路径，有以下几个文件</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527025243029.png" alt="image-20260527025242979"></p>
-<p>settings.default.toml 文件是默认配置文件，不能更改，settings.user.toml文件是用户配置文件，优先级比前者更高。插件系统会优先从user.toml获取配置项，如果.user.toml没有对应的配置项，则从.default.toml中获取。因此可在user.toml 中进行修改。</p>
-<p>打开settings.default.toml文件，查找关键字 “auto_number”，</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030236441.png" style="width:80%" />
-
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030544642.png" alt="image-20260527030544601" style="width:80%" />
-
-<p>复制以下内容到settings.user.toml文件即可去掉侧边栏和正文标题的自动编号啦。🎉</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030351905.png" alt="image-20260527030351856"></p>
-<h2 id="3-Typora-主题的设置"><a href="#3-Typora-主题的设置" class="headerlink" title="3. Typora 主题的设置"></a>3. Typora 主题的设置</h2><p>打开Typora 的文件 → 偏好设置 → 外观 → 获取主题，会跳转到官网<a href="https://theme.typoraio.cn/">主题库</a>。</p>
-<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527031645235.png" style="width:80%" />
-
-<p>在官网选择心仪的主题下载（也可在 github 上找），此处以 Drake 主题为例，解压缩后将 css 文件和跟主题同名的文件夹复制到 Typora 的theme文件夹下（上图点击打开主题文件夹）。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527032141993.png" alt="image-20260527032141911"></p>
-<p>然后就可以在主题那里切换主题使用了。🎉</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>github</tag>
-        <tag>博客</tag>
-        <tag>PicGo</tag>
-        <tag>Typora</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2026/04/18/hello-world/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="窃取机密失败..." data-whm="窃取机密失败，仍可尝试">
-  <script id="hbeData" type="hbeData" data-hmacdigest="2ff0b5801172e2b9a4e19b32d6a58f385dbb38434dd5c0977562ecfc20d34ace">17851fe798c0443d4d6f7cb76297144bcc56fba161dfaff51e593c8cd63c0f4a636c60932ee12b50e9b859d5e2d884d74eb357c9436cb4650843c90ddf31a00d3606e2c781f3c62498341c99b7e215c0bcf5d79d2b7de7e6abefa26635c7fcc4792de2b201fcd43a7d01d9fdf1b654044e6a728ab7862ee1efedb4cc3fec473a834aa4829f2c7ac993cb3e098c1faee0de538fcbd36b32af9b0d2b0d7726f702b81d4d2d2d008142827827a83857ec4f721a33eeeca2782d684b74aa3bfb64dfbd69e31c6b30ecbe692760da8faf6625de8998f5bfa7f9a8b6679b5ea7edbea3e4c5efa45d2da13c623f0a1769fe7d1f8e288adc87333864d0f2be157c35f23de00d9fcc1a5f67c43827a523b5ac2d8924c903a47f57be4d6f8fe7b8b275647c50aeef4ccd86ab3ce5fd9f3db82a3d5a1d204820fd2911167c00ce4a9b011e5fca6af32332a62258ee40a52e4e9bfd95af160c62b35cfb34dc45c384315a0d55e693c2178dac4ccbda0cba59e4c9b2102c30e08450e26bf842ee8f23931ed882984c21f83a73cd4c88cfaf72b74310370deb312ea9ba4e0a150bf6fb252c3216a5c1969aee930dcb9bdcfa07aae5ba449147cd3064e1acdb0b9a9af291dcf7eb99dfb9e743d42ae14d48a0511fa0e268f8cb0c4ecc28de72ec7cd68407d505a3dfe732bd5d82bc67c42362aebbca8dc07041dd559378523c67ac3fc55ebb1de0f5a50cbfd90e7d0ddca2416809d5d18758d0a024cfab6a3707318aa3cb5a6f02821c89430672b6af45c75195032b7928d8bf4e9381de97960e45c3207a8dd5f51ea096b00705b688d84b59c6ed9039e9765da5c4923ddb295f81e46c9ddbd245b2752f560b5d5ae13b9c4c26742901d0a79db52856966607ba47fc9b2f21289031a84b05dbfc1c14680d4e76d627190b2945526f3be98eafc9539b506783adbf0e3bcaa24aca2ae015517f183bfa8818d785bb3fd5772080227fe7ba9709755bc19d8af299105ec9ba3a87bf969e9b4ce9354c9236e866aa705b15f44331643c63b3e8b97c9cebeff6cf81459c9c2dada4edfa2b0face5c3fb7ba36807e19e806487ac1b9646ca0d08ef43690069729cc853fd157dcd29c0f9f2d5cec86d86d4dd97e5b5b3183047255f43ce4d6b484ec8f354998b0815a95f2bb2964c62897ee7befbfdcfbb8dcdde44ef4e4286dd5c3764c19f1be066eee0f67f5a6c22ee5ef27153f9e05a7cf3ee7b777422ffd2b106effa703d29f464e328296588e7e48f7517692695c796af424d1faa1657a481e8d1def42bee657913e71ebf8b795c20beba8de5bc42b648607a1b9ccae109e95f00658e62b3399d183d52a73bd05f557d5852f50be44af8e8c52366c216653663a16878c378d1367b6c9f626efbd2a4f20ba4785358680e3156ed6184895a3cfec2aebabc2dcbba2b562e9594d977a7ef373c271bab73480692a2deb0a11b73675674dde1154ca35a049e034f5a123b91ef6ded30643b7a0c3476c36292895513d5746668558cd6ddecf3b24e07692f92007eae068b14a34497697ef0d0be1fd3d37b088d4f2370ef7c648077aadcb95f9f2d0d68522968c9b2d5ab5286d4c0195b980f90924e1b9c730400337837a89d081be7b8861a312ec76e7e72a7173b86c55d8c4e69d5999d836098f702e6d160e89d0eb3d095d83796fefa2a3b0dafdbe168a84e401d857b4610e7d8ccd137e4f5b0ace226d7ea4e4b2039a324eae543b2299ca5e9167338eecfe4e5fb859817615b6ea9b74ba197053264e323f49e516a8acfa321868d78b2bbfd811eda264ecaf4926676f195dcbd79f382cfee44a5bd185128a9fa25dc7ae006b7eef9bf18a659a72ea204ee8d6bc1f73338323ae3727b707613fef3f1957afd41c2336caefb356210f870a236c024fa9f2927ed52a49047ae197e23018a875898e504d26fb4e3a56990034185d91d528d37172005d9b444e4c8099f11d3893726a707450d4174b7dd04795bc0747ed0eabd2f3e9c62bb317c01646aa41f2e51e332d1b59df2d2ae62fb3d5efd9df5a6eb873262995c6921dfce70dc3b6516df50f215e9ac6e29263e1eb5476166d3dce0ace15bb0905d6ab6a226f418f82d8e04d5ef01512f84996bc0c08beea8619a83edd363c2993d72f9a889d65e6c3811119bae3c8f0af7355464912bbb92d411c453e0003995d9fae81cdf4c0ba677416b898636c1c3f6bea53cd31ce978982326a727d6c50169bf4d0148f93e02b2ccea324fc759aea957efd8b3a578dca016fe779303a21f7c21e94f3eb07fd00b86e8548703bccedfad89e1db2e0d92c848be1cd6dbd7769f6377fb1068cd550196b79961c1df366f58352258c87391d58ab51de3f5cc2837495b5c02f3cf0f0a7d43e3466dfdb1a82a1e5e6c29d2c1453534f6cd7db06c06575596837cb73aed418fd90f897062c2d8bfdf46a6685fe8c5e789e29680f8a2c9072c3f4fa96a874275ccbe23b7dc54b0c402dbfd2c27a0a996a107574cec79d75b4cecde6450138b42d4bc99b587f13db04834c23e486919dba50781341e11e47f80fac9a1913207e7eddb95f54a9c72a5a1c7c4598f1a09631e6c78ee77d36942e83a0fc13f23aae401fb9036397a6637442dfa534e98f65eeeb360139ef1af1441f7965d7be1d974afc1c0147bf17e55e0601a3372409b9320b184320eaea48e80ae9f14f1f4e6cf789fb7c03a926fdeaced2f9ac788ad69e6b073ec314136b756000656d3d75ee5e68198fb76bf3ea7df64c71541ae90ce2ae8f84426c6a778ddc31cb2894969dacd4f8fb2988723b1031eb9b09e8932206ff29cf3936f123fb177d2f6325676619d42dc8ef2797efe583692fae91f4315746b2f0c1a4ddaa4d2f17749d6f5b6227788f8ddb64ec5f546d14cb6258f5c72d77114d0187c26c35196d3669fc537a7579eafc77fbc79aef4d6bfec18ec98df96240104fa3be1c9fdb58961c4989f92480ad825961d0b496a0cc82cd0281d169a92e3c122c345a7f8b759959bb1a97bad2982ab1334902622ffddfd444f5420f2c8dab814797cae2e2ea73e7c9ffd6b84cd8e946bb1b6645d66569236f24a79c71a12b602b99704a4c690ec13655d564872e793396bff878ef3f4cfec009e9f494ba8a0b7c691bed46e9242eb18ea16cd7ac3e19f02f259098a4d0871dc3075c3041c</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">这是一篇加密文章，请输入密码查看</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-  </entry>
-  <entry>
     <title>Hexo + Next + Github 从零开始搭建博客</title>
     <url>/2026/05/31/Hexo%20+%20Next%20+%20Github%20%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前许多课程的实验都参考往年的学长的博客，从那时起便萌生了搭建自己博客的念头，记录下自己的学习过程。终于，前段时间选择用 Hexo 搭建了自己的博客，历经了一个多月断断续续的美化，整体效果已符合心中预期😇，特此记录整个过程。</p>
@@ -514,6 +391,400 @@
         <tag>github</tag>
         <tag>博客</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Typora + PicGo + Github 图床配置教程</title>
+    <url>/2026/05/27/Typora%20+%20PicGo%20+%20Github%20%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="一、建立-Github-仓库"><a href="#一、建立-Github-仓库" class="headerlink" title="一、建立 Github 仓库"></a>一、建立 Github 仓库</h1><p>登录 github，点击右上角 “+” 号，选择 “New repository” 新建仓库用来存放上传的图片。</p>
+<span id="more"></span>
+
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527013948116.png" alt="image-20260527013940946"></p>
+<p>在创建仓库页面，按如下图依次填写，然后点击 ”Create repository”。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527014854002.png" alt="image-20260527014853898" style="width:67%" />
+
+<p>依次进入 settings&#x2F;Developer settings&#x2F;Personal access tokens 来生成一个 token 用于 PicGo 访问 Github。</p>
+<blockquote>
+<p>GitHub Token 是访问私有仓库的身份验证凭据，确保只有授权用户才能上传和访问图片。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527015411762.png" alt="image-20260527015411700"></p>
+<p>点击  “Generate new token(classic)” 按钮。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527015724113.png" alt="image-20260527015723998" style="width:80%" />
+
+<ul>
+<li>Note：描述名称，可取如 ”PicGo” 等名称显示其用途。</li>
+<li>Expiration：选择 “No expiration” 永不过期。</li>
+<li>Select scopes：勾上 ”repo” 的权限。</li>
+</ul>
+<p>点击 “Generate token” 生成令牌，得到 token 后保存（只出现一次），后面会用上。</p>
+<h1 id="二、PicGo"><a href="#二、PicGo" class="headerlink" title="二、PicGo"></a>二、PicGo</h1><ol>
+<li><strong>什么是图床</strong></li>
+</ol>
+<p>图床就是专门用来存图片、并给你可直接用的图片链接的在线服务或服务器。常见的图床有阿里云 OSS、腾讯云 COS、PicGo 等等，笔者采用 PicGo 配置。</p>
+<ol start="2">
+<li><strong>下载 PicGo</strong></li>
+</ol>
+<p>下载 <a href="https://github.com/Molunerfinn/PicGo/releases">链接</a>，根据电脑配置选择合适版本，笔者电脑设备为 windows10，采用如下版本下载。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161244800.png" style="width:50%" />
+
+<p>下载后进行安装，记住安装路径。</p>
+<ol start="3">
+<li><strong>配置 PicGo</strong></li>
+</ol>
+<p>进入 PicGo 后，将如下框住地方修改为 Github。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161502663.png" style="width:67%" />
+
+<p>点击图床设置，选择 Github 设置，按如下格式设置。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518151358906.png" alt="image-20260518151358849" style="width:67%" />
+
+<ul>
+<li>图床配置名：任取，方便记忆</li>
+<li>仓库名：Github 用户名&#x2F;仓库名</li>
+<li>分支名：main</li>
+<li>Token：在 Github 仓库配置中保存的 Token 复制过来</li>
+<li>存储路径：可设可不设，设置 img&#x2F; 方便管理</li>
+<li>自定义域名：可以加快访问图片的速度，<a href="https://cdn.jsdelivr.net/gh/[Github">https://cdn.jsdelivr.net/gh/[Github</a> 用户名]&#x2F;[仓库名]@main</li>
+</ul>
+<p>  点击确定，配置完成。<br>  此外，还需点击 PicGo 设置的 sever，设置监听端口需为 36677。</p>
+ <img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260518161750218.png" style="width:80%" />
+
+<h1 id="三、设置-Typora"><a href="#三、设置-Typora" class="headerlink" title="三、设置 Typora"></a>三、设置 Typora</h1><p>点击左上角文件，进入偏好设置</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527020739087.png" alt="image-20260527020738982" style="width:80%" />
+
+<p>进入图像设置，插入图片时选择上传图片，并将如图所示的选项打勾，上传服务设定设置为PicGo（app），下面填写完整的 PicGo 安装的路径（路径包含 PicGo.exe）。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527021050758.png" alt="image-20260527021050675" style="width:80%" />
+
+<p>配置完成后点击左下角验证图片上传选项，出现如下界面则说明配置成功！🎉</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527021249567.png" alt="image-20260527021249500" style="width:80%" />
+
+<h1 id="四、Typora-的一些设置"><a href="#四、Typora-的一些设置" class="headerlink" title="四、Typora 的一些设置"></a>四、Typora 的一些设置</h1><blockquote>
+<p>以下设置配置完都需重新启动 Typora。</p>
+</blockquote>
+<h2 id="1-plugin插件安装"><a href="#1-plugin插件安装" class="headerlink" title="1. plugin插件安装"></a>1. plugin插件安装</h2><p>参考b站 <a href="https://www.bilibili.com/video/BV1DtrbYrEgU/?spm_id_from=333.1387.favlist.content.click&vd_source=73ddc96ea81759ccdce58fa735a6e207">up 主</a>的视频或官方视频，在<a href="https://github.com/obgnail/typora_plugin/tree/master">官方网站</a>找到对应的版本进行安装</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527023818337.png" alt="image-20260527023818165"></p>
+<p>解压缩后，将解压缩的叫 ”plugin” 的文件夹复制到 Typora 的安装路径 resources 文件夹下（与window.html 在同一文件夹下），然后进入 plugin 文件夹下的 bin 文件夹，双击install_windows_amd_x64.exe 运行。插件即安装成功。🎉</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527024403275.png" alt="image-20260527024403199"></p>
+<h2 id="2-去掉typora的自动编号渲染功能"><a href="#2-去掉typora的自动编号渲染功能" class="headerlink" title="2. 去掉typora的自动编号渲染功能"></a>2. 去掉typora的自动编号渲染功能</h2><blockquote>
+<p>参考博客园<a href="https://www.cnblogs.com/LiYi-han/p/19003461">文章</a></p>
+</blockquote>
+<p>在 Typora 上写 md 文件时，从二级标题起，软件都给自动编号了，但问题是这只是一种渲染效果。同样的文档导到别的地方，比如博客园，编号就没有了，所以选择去掉自动标号渲染的功能。</p>
+<blockquote>
+<p>前置：已安装 plugin 插件</p>
+</blockquote>
+<p>点开 .\Typora\resources\plugin\global\settings 路径，有以下几个文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527025243029.png" alt="image-20260527025242979"></p>
+<p>settings.default.toml 文件是默认配置文件，不能更改，settings.user.toml文件是用户配置文件，优先级比前者更高。插件系统会优先从user.toml获取配置项，如果.user.toml没有对应的配置项，则从.default.toml中获取。因此可在user.toml 中进行修改。</p>
+<p>打开settings.default.toml文件，查找关键字 “auto_number”，</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030236441.png" style="width:80%" />
+
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030544642.png" alt="image-20260527030544601" style="width:80%" />
+
+<p>复制以下内容到settings.user.toml文件即可去掉侧边栏和正文标题的自动编号啦。🎉</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527030351905.png" alt="image-20260527030351856"></p>
+<h2 id="3-Typora-主题的设置"><a href="#3-Typora-主题的设置" class="headerlink" title="3. Typora 主题的设置"></a>3. Typora 主题的设置</h2><p>打开Typora 的文件 → 偏好设置 → 外观 → 获取主题，会跳转到官网<a href="https://theme.typoraio.cn/">主题库</a>。</p>
+<img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527031645235.png" style="width:80%" />
+
+<p>在官网选择心仪的主题下载（也可在 github 上找），此处以 Drake 主题为例，解压缩后将 css 文件和跟主题同名的文件夹复制到 Typora 的theme文件夹下（上图点击打开主题文件夹）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/guodk2003/Image-hosting@main/img/20260527032141993.png" alt="image-20260527032141911"></p>
+<p>然后就可以在主题那里切换主题使用了。🎉</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>github</tag>
+        <tag>博客</tag>
+        <tag>PicGo</tag>
+        <tag>Typora</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码随想录-哈希表</title>
+    <url>/2026/09/28/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%93%88%E5%B8%8C%E8%A1%A8/</url>
+    <content><![CDATA[<span id="more"></span>
+
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><table>
+<thead>
+<tr>
+<th>容器</th>
+<th>底层</th>
+<th>特点</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>set</td>
+<td>红黑树</td>
+<td>有序、不重复</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td>multiset</td>
+<td>红黑树</td>
+<td>有序、可重复</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td>unordered_set</td>
+<td>哈希表</td>
+<td>无序、不重复</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>map</td>
+<td>红黑树</td>
+<td>key有序、唯一</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td>multimap</td>
+<td>红黑树</td>
+<td>key有序、可重复</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td>unordered_map</td>
+<td>哈希表</td>
+<td>无序、key唯一</td>
+<td>O(1)</td>
+</tr>
+</tbody></table>
+<p>注：</p>
+<ul>
+<li><code>begin()</code> 指第一个元素，<code>end()</code> 指最后一个元素的下一位</li>
+<li>需要查询一个元素是否出现过，或者一个元素是否在集合里的时候，想到哈希法。</li>
+</ul>
+<h1 id="242-有效的字母异位词-力扣（LeetCode）"><a href="#242-有效的字母异位词-力扣（LeetCode）" class="headerlink" title="242. 有效的字母异位词 - 力扣（LeetCode）"></a><a href="https://leetcode.cn/problems/valid-anagram/description/">242. 有效的字母异位词 - 力扣（LeetCode）</a></h1><p>给定两个字符串 <code>s</code> 和 <code>t</code> ，编写一个函数来判断 <code>t</code> 是否是 <code>s</code> 的 字母异位词。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;anagram&quot;, t = &quot;nagaram&quot;</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+
+<p>注：字母异位词：两个字符串中，每种字符出现的次数完全相同，但是顺序可以不同。（字母一样，数量一样，只是排列顺序不同）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isAnagram</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> record[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i++) </span><br><span class="line">            record[s[i] - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; t.<span class="built_in">size</span>(); i++)</span><br><span class="line">            record[t[i] - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)</span><br><span class="line">            <span class="keyword">if</span>(record[i] != <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>暴力解法</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isAnagram</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">size</span>() != t.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">used</span><span class="params">(t.size(), <span class="literal">false</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; t.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!used[j] &amp;&amp; s[i] == t[j]) &#123;</span><br><span class="line">                    used[j] = <span class="literal">true</span>;</span><br><span class="line">                    flag = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(flag == <span class="literal">false</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="349-两个数组的交集-力扣（LeetCode）"><a href="#349-两个数组的交集-力扣（LeetCode）" class="headerlink" title="349. 两个数组的交集 - 力扣（LeetCode）"></a><a href="https://leetcode.cn/problems/intersection-of-two-arrays/description/">349. 两个数组的交集 - 力扣（LeetCode）</a></h1><p>给定两个数组 <code>nums1</code> 和 <code>nums2</code> ，返回 <em>它们的 交集</em> 。输出结果中的每个元素一定是 <strong>唯一</strong> 的。我们可以 <strong>不考虑输出结果的顺序</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums1 = [1,2,2,1], nums2 = [2,2]</span><br><span class="line">输出：[2]</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums1.length, nums2.length &lt;= 1000</code></li>
+<li><code>0 &lt;= nums1[i], nums2[i] &lt;= 1000</code></li>
+</ul>
+<p>先把 <code>nums1</code> 放进 <code>unordered_set</code> 去重，然后遍历 <code>nums2</code>，如果某个数在 set 里，就把它加入答案，同时从 set 中删掉，避免重复加入。</p>
+<ul>
+<li>时间复杂度：O(n + m)</li>
+<li>空间复杂度：O(n)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">intersection</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="function">unordered_set&lt;<span class="type">int</span>&gt; <span class="title">st</span><span class="params">(nums<span class="number">1.</span>begin(), nums<span class="number">1.</span>end())</span></span>;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> x : nums2) </span><br><span class="line">            <span class="keyword">if</span>(st.<span class="built_in">erase</span>(x)) <span class="comment">// 从集合 st 中删除值为 x 的元素。返回 0 没删成功，1删除 x。</span></span><br><span class="line">                ans.<span class="built_in">push_back</span>(x);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>先把 <code>nums1</code> 放进一个 <code>unordered_set</code> 里，然后遍历 <code>nums2</code>，如果当前元素也在这个 set 里，就把它放进结果 set（自动去重）。</p>
+<ul>
+<li>时间复杂度：O(n + m)</li>
+<li>空间复杂度：O(n)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">intersection</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="function">unordered_set&lt;<span class="type">int</span>&gt; <span class="title">st</span><span class="params">(nums<span class="number">1.</span>begin(), nums<span class="number">1.</span>end())</span></span>;</span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> x : nums2) </span><br><span class="line">            <span class="keyword">if</span>(st.<span class="built_in">find</span>(x) != st.<span class="built_in">end</span>()) <span class="comment">// 没找打返回 set 结尾</span></span><br><span class="line">                ans.<span class="built_in">insert</span>(x);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(ans.<span class="built_in">begin</span>(), ans.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="202-快乐数-力扣（LeetCode）"><a href="#202-快乐数-力扣（LeetCode）" class="headerlink" title="202. 快乐数 - 力扣（LeetCode）"></a><a href="https://leetcode.cn/problems/happy-number/description/">202. 快乐数 - 力扣（LeetCode）</a></h1><p>编写一个算法来判断一个数 <code>n</code> 是不是快乐数。</p>
+<p><strong>「快乐数」</strong> 定义为：</p>
+<ul>
+<li>对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。</li>
+<li>然后重复这个过程直到这个数变为 1，也可能是 <strong>无限循环</strong> 但始终变不到 1。</li>
+<li>如果这个过程 <strong>结果为</strong> 1，那么这个数就是快乐数。</li>
+</ul>
+<p>如果 <code>n</code> 是 <em>快乐数</em> 就返回 <code>true</code> ；不是，则返回 <code>false</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：n = 19</span><br><span class="line">输出：true</span><br><span class="line">解释：</span><br><span class="line">12 + 92 = 82</span><br><span class="line">82 + 22 = 68</span><br><span class="line">62 + 82 = 100</span><br><span class="line">12 + 02 + 02 = 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 231 - 1</code></li>
+</ul>
+<p>思路：注意到无限循环 -&gt; 求和过程中有 sum 重复出现 -&gt; 考虑哈希 -&gt; unordered_set</p>
+<ul>
+<li>时间复杂度: O(logn)</li>
+<li>空间复杂度: O(logn)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getSum</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n) &#123;</span><br><span class="line">            sum += (n % <span class="number">10</span>) * (n % <span class="number">10</span>);</span><br><span class="line">            n /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isHappy</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; st; <span class="comment">// 存储每次的 sum</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="type">int</span> sum = <span class="built_in">getSum</span>(n);</span><br><span class="line">            <span class="keyword">if</span>(sum == <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(st.<span class="built_in">find</span>(sum) != st.<span class="built_in">end</span>()) <span class="comment">// 说明sum已重复出现，无限循环</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                st.<span class="built_in">insert</span>(sum);</span><br><span class="line">            n = sum;</span><br><span class="line">        &#125;       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="1-两数之和-力扣（LeetCode）"><a href="#1-两数之和-力扣（LeetCode）" class="headerlink" title="1. 两数之和 - 力扣（LeetCode）"></a><a href="https://leetcode.cn/problems/two-sum/description/">1. 两数之和 - 力扣（LeetCode）</a></h1><p>给定一个整数数组 <code>nums</code> 和一个整数目标值 <code>target</code>，请你在该数组中找出 <strong>和为目标值</strong> <em><code>target</code></em> 的那 <strong>两个</strong> 整数，并返回它们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。</p>
+<p>你可以按任意顺序返回答案。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>2 &lt;= nums.length &lt;= 104</code></li>
+<li><code>-109 &lt;= nums[i] &lt;= 109</code></li>
+<li><code>-109 &lt;= target &lt;= 109</code></li>
+<li><strong>只会存在一个有效答案</strong></li>
+</ul>
+<p>思路：在遍历数组的时候，只需要向map去查询是否有和目前遍历元素匹配的数值，如果有，就找到的匹配对，如果没有，就把目前遍历的元素放进map中，因为map存放的就是我们访问过的元素。</p>
+<ul>
+<li>时间复杂度: O(n)</li>
+<li>空间复杂度: O(n)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">twoSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="comment">// 遍历当前元素，并在map中寻找是否有匹配的key</span></span><br><span class="line">            <span class="keyword">auto</span> it = mp.<span class="built_in">find</span>(target - nums[i]);</span><br><span class="line">            <span class="keyword">if</span>(it != mp.<span class="built_in">end</span>())</span><br><span class="line">                <span class="keyword">return</span> &#123;i, it-&gt;second&#125;;</span><br><span class="line">            <span class="comment">// 如果没找到匹配对，就把访问过的元素和下标加入到map中</span></span><br><span class="line">            mp[nums[i]] = i;</span><br><span class="line">            <span class="comment">// mp.insert(pair&lt;int, int&gt;(nums[i], i)); // 第二种写法</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="167-两数之和-II-输入有序数组-力扣（LeetCode）"><a href="#167-两数之和-II-输入有序数组-力扣（LeetCode）" class="headerlink" title="167. 两数之和 II - 输入有序数组 - 力扣（LeetCode）"></a><a href="https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/description/">167. 两数之和 II - 输入有序数组 - 力扣（LeetCode）</a></h1><p>给你一个下标从 <strong>1</strong> 开始的整数数组 <code>numbers</code> ，该数组已按 <strong>非递减顺序排列</strong>。</p>
+<p>请你从数组中找出满足相加之和等于目标数 <code>target</code> 的 <strong>两个</strong> 数。令这两个数分别是 <code>numbers[index1]</code> 和 <code>numbers[index2]</code> ，其中 <code>1 &lt;= index1 &lt; index2 &lt;= numbers.length</code> 。</p>
+<p>以长度为 2 的整数数组 <code>[index1, index2]</code> 的形式返回这两个整数的下标 <code>index1</code> 和 <code>index2</code>。</p>
+<p>你可以假设每个输入 <strong>只对应唯一的答案</strong> ，而且你 <strong>不可以</strong> 重复使用相同的元素。</p>
+<p>你所设计的解决方案必须只使用常数级的额外空间。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：numbers = [2,7,11,15], target = 9</span><br><span class="line">输出：[1,2]</span><br><span class="line">解释：2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。返回 [1, 2] 。</span><br></pre></td></tr></table></figure>
+
+<p>思路：利用数组已经升序的特点，使用左右双指针分别指向数组两端：如果两数之和等于 <code>target</code>，直接返回下标；如果和大于 <code>target</code>，说明当前结果太大，需要将右指针左移；如果和小于 <code>target</code>，说明结果太小，需要将左指针右移。这样每次都能排除一部分不可能的情况</p>
+<p><strong>注：数组有序，可使用想向双指针</strong> </p>
+<ul>
+<li>时间复杂度为 <code>O(n)</code></li>
+<li>空间复杂度为 <code>O(1)</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">twoSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; numbers, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = numbers.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="type">int</span> s = numbers[l] + numbers[r];</span><br><span class="line">            <span class="keyword">if</span>(s == target)</span><br><span class="line">                <span class="keyword">return</span> &#123;l + <span class="number">1</span>, r + <span class="number">1</span>&#125;;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s &gt; target)</span><br><span class="line">                r--;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="454-四数相加-II-力扣（LeetCode）"><a href="#454-四数相加-II-力扣（LeetCode）" class="headerlink" title="454. 四数相加 II - 力扣（LeetCode）"></a><a href="https://leetcode.cn/problems/4sum-ii/">454. 四数相加 II - 力扣（LeetCode）</a></h1><p>给你四个整数数组 <code>nums1</code>、<code>nums2</code>、<code>nums3</code> 和 <code>nums4</code> ，数组长度都是 <code>n</code> ，请你计算有多少个元组 <code>(i, j, k, l)</code> 能满足：</p>
+<ul>
+<li><code>0 &lt;= i, j, k, l &lt; n</code></li>
+<li><code>nums1[i] + nums2[j] + nums3[k] + nums4[l] == 0</code></li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]</span><br><span class="line">输出：2</span><br><span class="line">解释：</span><br><span class="line">两个元组如下：</span><br><span class="line">1. (0, 0, 0, 1) -&gt; nums1[0] + nums2[0] + nums3[0] + nums4[1] = 1 + (-2) + (-1) + 2 = 0</span><br><span class="line">2. (1, 1, 0, 0) -&gt; nums1[1] + nums2[1] + nums3[0] + nums4[0] = 2 + (-1) + (-1) + 0 = 0</span><br></pre></td></tr></table></figure>
+
+
+
+<p>思路：把 4 个数组拆成两组：<code>nums1 + nums2</code> 和 <code>nums3 + nums4</code>，用哈希表记录前一组所有两数和出现的次数，再去后一组里找相反数。</p>
+<ul>
+<li>时间复杂度：O(n²)</li>
+<li>时间复杂度：O(n²)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">fourSumCount</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2, vector&lt;<span class="type">int</span>&gt;&amp; nums3, vector&lt;<span class="type">int</span>&gt;&amp; nums4)</span> </span>&#123;</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> x : nums1)</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> y : nums2)</span><br><span class="line">                mp[x + y]++;</span><br><span class="line">        <span class="comment">// for(int i = 0; i &lt; nums1.size(); i++)</span></span><br><span class="line">        <span class="comment">//     for(int j = 0; j &lt; nums2.size(); j++)</span></span><br><span class="line">        <span class="comment">//         mp[nums1[i] + nums2[j]]++;</span></span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> x : nums3)</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> y : nums4)</span><br><span class="line">                count += mp[<span class="number">0</span> - (x + y)];</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="383-赎金信-力扣（LeetCode）"><a href="#383-赎金信-力扣（LeetCode）" class="headerlink" title="383. 赎金信 - 力扣（LeetCode）"></a><a href="https://leetcode.cn/problems/ransom-note/description/">383. 赎金信 - 力扣（LeetCode）</a></h1><p>给你两个字符串：<code>ransomNote</code> 和 <code>magazine</code> ，判断 <code>ransomNote</code> 能不能由 <code>magazine</code> 里面的字符构成。</p>
+<p>如果可以，返回 <code>true</code> ；否则返回 <code>false</code> 。</p>
+<p><code>magazine</code> 中的每个字符只能在 <code>ransomNote</code> 中使用一次。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：ransomNote = &quot;a&quot;, magazine = &quot;b&quot;</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
+
+<p>思路：用 unordered_map 记录 字符串 magazine 的字符，再循环 ransomNote 来进行对比</p>
+<ul>
+<li>时间复杂度：O(n)</li>
+<li>空间复杂度：O(1)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">canConstruct</span><span class="params">(string ransomNote, string magazine)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ransomNote.<span class="built_in">size</span>() &gt; magazine.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; magazine.<span class="built_in">size</span>(); i++)</span><br><span class="line">            mp[magazine[i]]++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; ransomNote.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(mp[ransomNote[i]] == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            mp[ransomNote[i]]--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="15-三数之和-力扣（LeetCode）"><a href="#15-三数之和-力扣（LeetCode）" class="headerlink" title="15. 三数之和 - 力扣（LeetCode）"></a><a href="https://leetcode.cn/problems/3sum/description/">15. 三数之和 - 力扣（LeetCode）</a></h1><p>给你一个整数数组 <code>nums</code> ，判断是否存在三元组 <code>[nums[i], nums[j], nums[k]]</code> 满足 <code>i != j</code>、<code>i != k</code> 且 <code>j != k</code> ，同时还满足 <code>nums[i] + nums[j] + nums[k] == 0</code> 。请你返回所有和为 <code>0</code> 且不重复的三元组。</p>
+<p>**注意：**答案中不可以包含重复的三元组。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [-1,0,1,2,-1,-4]</span><br><span class="line">输出：[[-1,-1,2],[-1,0,1]]</span><br><span class="line">解释：</span><br><span class="line">nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。</span><br><span class="line">nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。</span><br><span class="line">nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。</span><br><span class="line">不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。</span><br><span class="line">注意，输出的顺序和三元组的顺序并不重要</span><br></pre></td></tr></table></figure>
+
+
+
+<p> 思路：枚举 nums[i]（即 x），问题变成 nums[j] + nums[k] &#x3D; - nums[i]，变成跟两数之和一样。</p>
+<ul>
+<li>避免重复：在外层循环中，如果发现 nums[i]&#x3D;nums[i−1]，那么 nums[i] 与后面两个数组成的和为 0 的三元组，nums[i−1] 也能组成一模一样的三元组，这就重复了，直接 continue。在内层循环中，当三数之和等于 0 时，为避免把相同的三元组计入答案，跳过后续相同的 <em>nums</em>[<em>j</em>] 和 <em>nums</em>[<em>k</em>]</li>
+<li>优化一：如果 nums[i] 与后面最小的两个数相加 nums[i]+nums[i+1]+nums[i+2]&gt;0，那么后面不可能存在三数之和等于 0，break 外层循环。</li>
+<li>优化二：如果 nums[i] 与后面最大的两个数相加 nums[i]+nums[n−2]+nums[n−1]&lt;0，那么内层循环不可能存在三数之和等于 0，但继续枚举，nums[i] 可以变大，所以后面还有机会找到三数之和等于 0，continue 外层循环。</li>
+</ul>
+<p>复杂度：</p>
+<ul>
+<li>时间复杂度：O(n²)</li>
+<li>时间复杂度：O(1)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">threeSum</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="type">int</span> x = nums[i];</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; x == nums[i - <span class="number">1</span>]) <span class="comment">// 跳过重复数字</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(x + nums[i + <span class="number">1</span>] + nums[i + <span class="number">2</span>] &gt; <span class="number">0</span>) <span class="comment">// 优化一</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(x + nums[n - <span class="number">2</span>] + nums[n - <span class="number">1</span>] &lt; <span class="number">0</span>) <span class="comment">// 优化二</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="type">int</span> j = i + <span class="number">1</span>, k = n - <span class="number">1</span>; <span class="comment">// 可以理解为 left、right</span></span><br><span class="line">            <span class="keyword">while</span>(j &lt; k) &#123;  <span class="comment">// 不能 j &lt;= k，要求三个不同的数</span></span><br><span class="line">                <span class="type">int</span> s = x + nums[j] + nums[k];</span><br><span class="line">                <span class="keyword">if</span>(s &gt; <span class="number">0</span>)</span><br><span class="line">                    k--;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(s &lt; <span class="number">0</span>)</span><br><span class="line">                    j++;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    ans.<span class="built_in">push_back</span>(&#123;x, nums[j], nums[k]&#125;);</span><br><span class="line">                    <span class="keyword">for</span>(j++; j &lt; k &amp;&amp; nums[j] == nums[j - <span class="number">1</span>]; j++); <span class="comment">// 跳过重复数字</span></span><br><span class="line">                    <span class="keyword">for</span>(k--; k &gt; j &amp;&amp; nums[k] == nums[k + <span class="number">1</span>]; k--); <span class="comment">// 跳过重复数字</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="18-四数之和-力扣（LeetCode）"><a href="#18-四数之和-力扣（LeetCode）" class="headerlink" title="18. 四数之和 - 力扣（LeetCode）"></a><a href="https://leetcode.cn/problems/4sum/description/">18. 四数之和 - 力扣（LeetCode）</a></h1><p>给你一个由 <code>n</code> 个整数组成的数组 <code>nums</code> ，和一个目标值 <code>target</code> 。请你找出并返回满足下述全部条件且<strong>不重复</strong>的四元组 <code>[nums[a], nums[b], nums[c], nums[d]]</code> （若两个四元组元素一一对应，则认为两个四元组重复）：</p>
+<ul>
+<li><code>0 &lt;= a, b, c, d &lt; n</code></li>
+<li><code>a</code>、<code>b</code>、<code>c</code> 和 <code>d</code> <strong>互不相同</strong></li>
+<li><code>nums[a] + nums[b] + nums[c] + nums[d] == target</code></li>
+</ul>
+<p>你可以按 <strong>任意顺序</strong> 返回答案 。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [1,0,-1,0,-2,2], target = 0</span><br><span class="line">输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]</span><br></pre></td></tr></table></figure>
+
+<p>思路：同三数之和，外面再多加一层嵌套，确定 nums[i] + nums[j]，内层依旧用双指针算法</p>
+<ul>
+<li>时间复杂度：O(n^3)</li>
+<li>空间复杂度：O(1)</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">fourSum</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">3</span>; i++) &#123; <span class="comment">// 枚举第一个数</span></span><br><span class="line">            <span class="type">long</span> <span class="type">long</span> <span class="type">int</span> x = nums[i];</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(x + nums[i + <span class="number">1</span>] + nums[i + <span class="number">2</span>] + nums[i + <span class="number">3</span>] &gt; target) <span class="comment">// 优化一</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(x + nums[n - <span class="number">3</span>] + nums[n - <span class="number">2</span>] + nums[n - <span class="number">1</span>] &lt; target) <span class="comment">// 优化二</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; n - <span class="number">2</span>; j++) &#123; <span class="comment">// 枚举第二个数</span></span><br><span class="line">                <span class="type">long</span> <span class="type">long</span> y = nums[j];</span><br><span class="line">                <span class="keyword">if</span>(j &gt; i + <span class="number">1</span> &amp;&amp; nums[j] == nums[j - <span class="number">1</span>])</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span>(x + y + nums[j + <span class="number">1</span>] + nums[j + <span class="number">2</span>] &gt; target) <span class="comment">// 优化一</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">if</span>(x + y + nums[n - <span class="number">2</span>] + nums[n - <span class="number">1</span>] &lt; target) <span class="comment">// 优化二</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="type">int</span> l = j + <span class="number">1</span>, r = n - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(l &lt; r) &#123; <span class="comment">// 双指针枚举第三个数和第四个数</span></span><br><span class="line">                    <span class="type">long</span> <span class="type">long</span> s = x + y + nums[l] + nums[r];</span><br><span class="line">                    <span class="keyword">if</span>(s &gt; target)</span><br><span class="line">                        r--;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(s &lt; target)</span><br><span class="line">                        l++;</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        ans.<span class="built_in">push_back</span>(&#123;(<span class="type">int</span>)x, (<span class="type">int</span>)y, nums[l], nums[r]&#125;);</span><br><span class="line">                        <span class="keyword">for</span>(l++; l &lt; r &amp;&amp; nums[l] == nums[l - <span class="number">1</span>]; l++);</span><br><span class="line">                        <span class="keyword">for</span>(r--; r &gt; l &amp;&amp; nums[r] == nums[r + <span class="number">1</span>]; r--);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>leecode</category>
+        <category>c++</category>
+      </categories>
+      <tags>
+        <tag>leecode</tag>
+        <tag>c++</tag>
+        <tag>代码随想录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2026/04/18/hello-world/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="窃取机密失败..." data-whm="窃取机密失败，仍可尝试">
+  <script id="hbeData" type="hbeData" data-hmacdigest="2ff0b5801172e2b9a4e19b32d6a58f385dbb38434dd5c0977562ecfc20d34ace">17851fe798c0443d4d6f7cb76297144bcc56fba161dfaff51e593c8cd63c0f4a636c60932ee12b50e9b859d5e2d884d74eb357c9436cb4650843c90ddf31a00d3606e2c781f3c62498341c99b7e215c0bcf5d79d2b7de7e6abefa26635c7fcc4792de2b201fcd43a7d01d9fdf1b654044e6a728ab7862ee1efedb4cc3fec473a834aa4829f2c7ac993cb3e098c1faee0de538fcbd36b32af9b0d2b0d7726f702b81d4d2d2d008142827827a83857ec4f721a33eeeca2782d684b74aa3bfb64dfbd69e31c6b30ecbe692760da8faf6625de8998f5bfa7f9a8b6679b5ea7edbea3e4c5efa45d2da13c623f0a1769fe7d1f8e288adc87333864d0f2be157c35f23de00d9fcc1a5f67c43827a523b5ac2d8924c903a47f57be4d6f8fe7b8b275647c50aeef4ccd86ab3ce5fd9f3db82a3d5a1d204820fd2911167c00ce4a9b011e5fca6af32332a62258ee40a52e4e9bfd95af160c62b35cfb34dc45c384315a0d55e693c2178dac4ccbda0cba59e4c9b2102c30e08450e26bf842ee8f23931ed882984c21f83a73cd4c88cfaf72b74310370deb312ea9ba4e0a150bf6fb252c3216a5c1969aee930dcb9bdcfa07aae5ba449147cd3064e1acdb0b9a9af291dcf7eb99dfb9e743d42ae14d48a0511fa0e268f8cb0c4ecc28de72ec7cd68407d505a3dfe732bd5d82bc67c42362aebbca8dc07041dd559378523c67ac3fc55ebb1de0f5a50cbfd90e7d0ddca2416809d5d18758d0a024cfab6a3707318aa3cb5a6f02821c89430672b6af45c75195032b7928d8bf4e9381de97960e45c3207a8dd5f51ea096b00705b688d84b59c6ed9039e9765da5c4923ddb295f81e46c9ddbd245b2752f560b5d5ae13b9c4c26742901d0a79db52856966607ba47fc9b2f21289031a84b05dbfc1c14680d4e76d627190b2945526f3be98eafc9539b506783adbf0e3bcaa24aca2ae015517f183bfa8818d785bb3fd5772080227fe7ba9709755bc19d8af299105ec9ba3a87bf969e9b4ce9354c9236e866aa705b15f44331643c63b3e8b97c9cebeff6cf81459c9c2dada4edfa2b0face5c3fb7ba36807e19e806487ac1b9646ca0d08ef43690069729cc853fd157dcd29c0f9f2d5cec86d86d4dd97e5b5b3183047255f43ce4d6b484ec8f354998b0815a95f2bb2964c62897ee7befbfdcfbb8dcdde44ef4e4286dd5c3764c19f1be066eee0f67f5a6c22ee5ef27153f9e05a7cf3ee7b777422ffd2b106effa703d29f464e328296588e7e48f7517692695c796af424d1faa1657a481e8d1def42bee657913e71ebf8b795c20beba8de5bc42b648607a1b9ccae109e95f00658e62b3399d183d52a73bd05f557d5852f50be44af8e8c52366c216653663a16878c378d1367b6c9f626efbd2a4f20ba4785358680e3156ed6184895a3cfec2aebabc2dcbba2b562e9594d977a7ef373c271bab73480692a2deb0a11b73675674dde1154ca35a049e034f5a123b91ef6ded30643b7a0c3476c36292895513d5746668558cd6ddecf3b24e07692f92007eae068b14a34497697ef0d0be1fd3d37b088d4f2370ef7c648077aadcb95f9f2d0d68522968c9b2d5ab5286d4c0195b980f90924e1b9c730400337837a89d081be7b8861a312ec76e7e72a7173b86c55d8c4e69d5999d836098f702e6d160e89d0eb3d095d83796fefa2a3b0dafdbe168a84e401d857b4610e7d8ccd137e4f5b0ace226d7ea4e4b2039a324eae543b2299ca5e9167338eecfe4e5fb859817615b6ea9b74ba197053264e323f49e516a8acfa321868d78b2bbfd811eda264ecaf4926676f195dcbd79f382cfee44a5bd185128a9fa25dc7ae006b7eef9bf18a659a72ea204ee8d6bc1f73338323ae3727b707613fef3f1957afd41c2336caefb356210f870a236c024fa9f2927ed52a49047ae197e23018a875898e504d26fb4e3a56990034185d91d528d37172005d9b444e4c8099f11d3893726a707450d4174b7dd04795bc0747ed0eabd2f3e9c62bb317c01646aa41f2e51e332d1b59df2d2ae62fb3d5efd9df5a6eb873262995c6921dfce70dc3b6516df50f215e9ac6e29263e1eb5476166d3dce0ace15bb0905d6ab6a226f418f82d8e04d5ef01512f84996bc0c08beea8619a83edd363c2993d72f9a889d65e6c3811119bae3c8f0af7355464912bbb92d411c453e0003995d9fae81cdf4c0ba677416b898636c1c3f6bea53cd31ce978982326a727d6c50169bf4d0148f93e02b2ccea324fc759aea957efd8b3a578dca016fe779303a21f7c21e94f3eb07fd00b86e8548703bccedfad89e1db2e0d92c848be1cd6dbd7769f6377fb1068cd550196b79961c1df366f58352258c87391d58ab51de3f5cc2837495b5c02f3cf0f0a7d43e3466dfdb1a82a1e5e6c29d2c1453534f6cd7db06c06575596837cb73aed418fd90f897062c2d8bfdf46a6685fe8c5e789e29680f8a2c9072c3f4fa96a874275ccbe23b7dc54b0c402dbfd2c27a0a996a107574cec79d75b4cecde6450138b42d4bc99b587f13db04834c23e486919dba50781341e11e47f80fac9a1913207e7eddb95f54a9c72a5a1c7c4598f1a09631e6c78ee77d36942e83a0fc13f23aae401fb9036397a6637442dfa534e98f65eeeb360139ef1af1441f7965d7be1d974afc1c0147bf17e55e0601a3372409b9320b184320eaea48e80ae9f14f1f4e6cf789fb7c03a926fdeaced2f9ac788ad69e6b073ec314136b756000656d3d75ee5e68198fb76bf3ea7df64c71541ae90ce2ae8f84426c6a778ddc31cb2894969dacd4f8fb2988723b1031eb9b09e8932206ff29cf3936f123fb177d2f6325676619d42dc8ef2797efe583692fae91f4315746b2f0c1a4ddaa4d2f17749d6f5b6227788f8ddb64ec5f546d14cb6258f5c72d77114d0187c26c35196d3669fc537a7579eafc77fbc79aef4d6bfec18ec98df96240104fa3be1c9fdb58961c4989f92480ad825961d0b496a0cc82cd0281d169a92e3c122c345a7f8b759959bb1a97bad2982ab1334902622ffddfd444f5420f2c8dab814797cae2e2ea73e7c9ffd6b84cd8e946bb1b6645d66569236f24a79c71a12b602b99704a4c690ec13655d564872e793396bff878ef3f4cfec009e9f494ba8a0b7c691bed46e9242eb18ea16cd7ac3e19f02f259098a4d0871dc3075c3041c</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">这是一篇加密文章，请输入密码查看</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
   </entry>
   <entry>
     <title>代码随想录-数组</title>
